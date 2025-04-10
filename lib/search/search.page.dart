@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/constant/myColors..dart';
+import 'package:shopping_app/particularSearch/particularSearch.page.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -210,14 +212,25 @@ class _SearchPageState extends State<SearchPage> {
                       children: [
                         Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12.r),
-                              child: Image.asset(
-                                // "assets/lipistic.png",
-                                searchList[index]['lipisticImage'].toString(),
-                                width: 195.w,
-                                height: 240.h,
-                                fit: BoxFit.cover,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder:
+                                        (context) => ParticularSearchPage(),
+                                  ),
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12.r),
+                                child: Image.asset(
+                                  // "assets/lipistic.png",
+                                  searchList[index]['lipisticImage'].toString(),
+                                  width: 195.w,
+                                  height: 240.h,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
 
