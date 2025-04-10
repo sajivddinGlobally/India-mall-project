@@ -341,9 +341,211 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 15.h),
             DealsBody(),
+            SizedBox(height: 20.h),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: Image.asset("assets/shop.png"),
+            ),
+            SizedBox(height: 40.h),
+            Row(
+              children: [
+                SizedBox(width: 20.w),
+                Text(
+                  "Product for you",
+                  style: GoogleFonts.inter(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Color.fromARGB(255, 16, 27, 1),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  width: 75.w,
+                  height: 36.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.r),
+                    color: Color.fromARGB(25, 150, 28, 130),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "View All",
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13.sp,
+                        color: textColor,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20.w),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: GridVeiwBody(),
+            ),
+            SizedBox(height: 60.h),
           ],
         ),
       ),
+    );
+  }
+}
+
+class GridVeiwBody extends StatefulWidget {
+  const GridVeiwBody({super.key});
+
+  @override
+  State<GridVeiwBody> createState() => _GridVeiwBodyState();
+}
+
+class _GridVeiwBodyState extends State<GridVeiwBody> {
+  List<Map<String, String>> gridList = [
+    {
+      "lipisticImage": "assets/pieces.png",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "53 Pieces Cabana Tent Birthday Deco",
+      "ammount": "\$450.00",
+    },
+    {
+      "lipisticImage": "assets/lip.png",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "53 Pieces Cabana Tent Birthday Deco",
+      "ammount": "\$450.00",
+    },
+    {
+      "lipisticImage": "assets/tic.png",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "53 Pieces Cabana Tent Birthday Deco",
+      "ammount": "\$450.00",
+    },
+    {
+      "lipisticImage": "assets/lipistic.png",
+      "ofImage": "assets/of.png",
+      "text": "20%",
+      "offtext": "OFF",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "53 Pieces Cabana Tent Birthday Deco",
+      "ammount": "\$450.00",
+    },
+    {
+      "lipisticImage": "assets/butter.png",
+      "ofImage": "assets/of.png",
+      "text": "20%",
+      "offtext": "OFF",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "1 KG Butter Paper for Roti, Cake",
+      "ammount": "\$150.00",
+    },
+    {
+      "lipisticImage": "assets/ganesh.png",
+      "ofImage": "assets/of.png",
+      "text": "20%",
+      "offtext": "OFF",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "37 Pc Birthday Decoration Items:Red Banner",
+      "ammount": "\$450.00",
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: gridList.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 8.w,
+        mainAxisSpacing: 10,
+        childAspectRatio: 0.65,
+      ),
+      itemBuilder: (context, index) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: Image.asset(
+                // "assets/pieces.png",
+                gridList[index]['lipisticImage'].toString(),
+                width: 195.w,
+                height: 240.h,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(height: 15.h),
+            Row(
+              children: [
+                Container(
+                  width: 40.w,
+                  height: 20.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.r),
+                    color: textColor,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(Icons.star, color: Colors.white, size: 15.sp),
+                      Text(
+                        // "4.5",
+                        gridList[index]['rating'].toString(),
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 5.w),
+                Text(
+                  // "(512 reviews)",
+                  gridList[index]['review'].toString(),
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 10.sp,
+                    color: Color.fromARGB(255, 102, 102, 102),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10.h),
+            SizedBox(
+              width: 159.w,
+              child: Text(
+                overflow: TextOverflow.ellipsis,
+                // "5 in 1 Lipstick Red Edition & Nud",
+                gridList[index]['title'].toString(),
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.sp,
+                  color: Color.fromARGB(255, 102, 102, 102),
+                ),
+              ),
+            ),
+            SizedBox(height: 5.h),
+            Text(
+              // "\$450.00",
+              gridList[index]['ammount'].toString(),
+              style: GoogleFonts.inter(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: textColor,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -363,7 +565,7 @@ class _DealsBodyState extends State<DealsBody> {
       "text": "20%",
       "offtext": "OFF",
       "rating": "4.5",
-      "review": "512",
+      "review": "(512 reviews)",
       "title": "5 in 1 Lipstick Red Edition & Nud",
       "ammount": "\$450.00",
     },
@@ -373,7 +575,7 @@ class _DealsBodyState extends State<DealsBody> {
       "text": "20%",
       "offtext": "OFF",
       "rating": "4.5",
-      "review": "512",
+      "review": "(512 reviews)",
       "title": "1 KG Butter Paper for Roti, Cake",
       "ammount": "\$150.00",
     },
@@ -383,7 +585,7 @@ class _DealsBodyState extends State<DealsBody> {
       "text": "20%",
       "offtext": "OFF",
       "rating": "4.5",
-      "review": "512",
+      "review": "(512 reviews)",
       "title": "37 Pc Birthday Decoration Items:Red Banner",
       "ammount": "\$450.00",
     },
@@ -391,7 +593,7 @@ class _DealsBodyState extends State<DealsBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 360.h,
+      height: 310.h,
       // color: Colors.yellow,
       child: ListView.builder(
         itemCount: myList.length,
@@ -404,12 +606,15 @@ class _DealsBodyState extends State<DealsBody> {
               children: [
                 Stack(
                   children: [
-                    Image.asset(
-                      // "assets/lipistic.png"
-                      width: 166.w,
-                      height: 200.h,
-                      fit: BoxFit.cover,
-                      myList[index]['lipisticImage'].toString(),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12.r),
+                      child: Image.asset(
+                        // "assets/lipistic.png"
+                        width: 166.w,
+                        height: 200.h,
+                        fit: BoxFit.cover,
+                        myList[index]['lipisticImage'].toString(),
+                      ),
                     ),
                     Positioned(
                       top: 19.h,
@@ -500,6 +705,7 @@ class _DealsBodyState extends State<DealsBody> {
                     ),
                   ),
                 ),
+                SizedBox(height: 5.h),
                 Text(
                   // "\$450.00",
                   myList[index]['ammount'].toString(),
