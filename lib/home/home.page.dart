@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/constant/myColors..dart';
+import 'package:shopping_app/search/search.page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -83,6 +85,12 @@ class _HomePageState extends State<HomePage> {
               child: SizedBox(
                 height: 50.h,
                 child: TextField(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(builder: (context) => SearchPage()),
+                    );
+                  },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(left: 8.h, right: 8.w),
                     prefixIcon: Icon(
@@ -440,6 +448,26 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: textColor,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.layers_outlined),
+            label: 'Category',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.card_travel), label: 'Cart'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.perm_identity_sharp),
+            label: 'Account',
+          ),
+        ],
+      ),
     );
   }
 }
@@ -516,7 +544,7 @@ class _GridVeiwBodyState extends State<GridVeiwBody> {
         crossAxisCount: 2,
         crossAxisSpacing: 10.w,
         mainAxisSpacing: 10.h,
-        childAspectRatio: 0.62,
+        childAspectRatio: 0.60,
       ),
       itemBuilder: (context, index) {
         return Column(
