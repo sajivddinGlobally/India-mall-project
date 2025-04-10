@@ -73,6 +73,9 @@ class _SearchPageState extends State<SearchPage> {
       "ammount": "\$450.00",
     },
   ];
+  bool isSearching = false;
+  final searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,31 +115,77 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
                 SizedBox(width: 8.w),
-                Text(
-                  "Deal of the day",
-                  style: GoogleFonts.inter(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20.sp,
-                    color: Color.fromARGB(255, 16, 27, 1),
-                  ),
-                ),
-                Spacer(),
-                Container(
-                  width: 44.w,
-                  height: 44.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    border: Border.all(
-                      color: Color.fromARGB(25, 0, 0, 0),
-                      width: 1.w,
+                if (!isSearching)
+                  Text(
+                    "Deal of the day",
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20.sp,
+                      color: Color.fromARGB(255, 16, 27, 1),
+                    ),
+                  )
+                else
+                  SizedBox(
+                    height: 50.h,
+                    width: 300.w,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 8.h, right: 8.w),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 20.sp,
+                          color: Color.fromARGB(255, 153, 153, 153),
+                        ),
+                        hintText: "Search Anything",
+                        hintStyle: GoogleFonts.inter(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.sp,
+                          color: Color.fromARGB(255, 153, 153, 153),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.r),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(25, 0, 0, 0),
+                            width: 1.w,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.r),
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(25, 0, 0, 0),
+                            width: 1.w,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  child: Center(
-                    child: Icon(
-                      Icons.search,
-                      color: Color.fromARGB(255, 16, 27, 1),
-                      size: 20.sp,
+                Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSearching = !isSearching;
+                      if (!isSearching) {
+                        searchController.clear();
+                      }
+                    });
+                  },
+                  child: Container(
+                    width: 44.w,
+                    height: 44.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      border: Border.all(
+                        color: Color.fromARGB(25, 0, 0, 0),
+                        width: 1.w,
+                      ),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        isSearching ? Icons.close : Icons.search,
+                        color: Color.fromARGB(255, 16, 27, 1),
+                        size: 20.sp,
+                      ),
                     ),
                   ),
                 ),
