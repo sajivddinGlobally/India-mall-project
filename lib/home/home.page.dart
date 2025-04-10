@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 60.h),
+            SizedBox(height: 70.h),
             Row(
               children: [
                 SizedBox(width: 20.w),
