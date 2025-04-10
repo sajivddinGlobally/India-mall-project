@@ -340,7 +340,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 15.h),
-            DealsBody(),
+            DealsBody(showDiscount: true),
             SizedBox(height: 20.h),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
@@ -384,7 +384,59 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: GridVeiwBody(),
             ),
-            SizedBox(height: 60.h),
+            SizedBox(height: 30.h),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 395.h,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 244, 231, 243),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 25.w,
+                      right: 20.w,
+                      top: 26.h,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Low Price Store",
+                          style: GoogleFonts.inter(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Color.fromARGB(255, 16, 27, 1),
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          width: 75.w,
+                          height: 36.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.r),
+                            color: Color.fromARGB(25, 150, 28, 130),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "View All",
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 13.sp,
+                                color: textColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  DealsBody(showDiscount: false),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -462,9 +514,9 @@ class _GridVeiwBodyState extends State<GridVeiwBody> {
       itemCount: gridList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 8.w,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.65,
+        crossAxisSpacing: 10.w,
+        mainAxisSpacing: 10.h,
+        childAspectRatio: 0.62,
       ),
       itemBuilder: (context, index) {
         return Column(
@@ -551,7 +603,8 @@ class _GridVeiwBodyState extends State<GridVeiwBody> {
 }
 
 class DealsBody extends StatefulWidget {
-  const DealsBody({super.key});
+  final bool showDiscount;
+  const DealsBody({super.key, required this.showDiscount});
 
   @override
   State<DealsBody> createState() => _DealsBodyState();
@@ -616,40 +669,44 @@ class _DealsBodyState extends State<DealsBody> {
                         myList[index]['lipisticImage'].toString(),
                       ),
                     ),
-                    Positioned(
-                      top: 19.h,
-                      child: Image.asset(
-                        // "assets/of.png",
-                        myList[index]['ofImage'].toString(),
-                      ),
-                    ),
-                    Positioned(
-                      top: 20.h,
-                      left: 15.w,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            // "20%",
-                            myList[index]['text'].toString(),
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18.sp,
-                              color: Colors.white,
-                            ),
+                    widget.showDiscount == true
+                        ? Positioned(
+                          top: 19.h,
+                          child: Image.asset(
+                            // "assets/of.png",
+                            myList[index]['ofImage'].toString(),
                           ),
-                          Text(
-                            // "OFF",
-                            myList[index]['offtext'].toString(),
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 15.sp,
-                              color: Colors.white,
-                            ),
+                        )
+                        : SizedBox(),
+                    widget.showDiscount
+                        ? Positioned(
+                          top: 20.h,
+                          left: 15.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                // "20%",
+                                myList[index]['text'].toString(),
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                // "OFF",
+                                myList[index]['offtext'].toString(),
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        )
+                        : SizedBox(),
                   ],
                 ),
                 SizedBox(height: 15.h),
