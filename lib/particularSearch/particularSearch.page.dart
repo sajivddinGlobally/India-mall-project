@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/constant/myColors..dart';
+import 'package:shopping_app/home/home.page.dart';
 
 class ParticularSearchPage extends StatefulWidget {
   const ParticularSearchPage({super.key});
@@ -297,9 +298,224 @@ class _ParticularSearchPageState extends State<ParticularSearchPage> {
                 ],
               ),
             ),
+            SizedBox(height: 30.h),
+            Divider(
+              color: Color.fromARGB(25, 0, 0, 0),
+              indent: 20.w,
+              endIndent: 20.w,
+              thickness: 1,
+            ),
+            SizedBox(height: 20.h),
+            TxtBody(
+              txt:
+                  "12 Shades-Effortless Blending: This palette offers 12 beautiful, versatile shades from Light to Dark, suitable for all Indian skin tones, and is easy to blend for a flawless finish.",
+            ),
+            SizedBox(height: 10.h),
+            TxtBody(
+              txt:
+                  "Skin Friendly Makeup Base: This skin-friendly palette, enriched with Castor Oil and moisturizers, is designed to nourish, protect, minimize pores, and is suitable for sensitive skin.",
+            ),
+            SizedBox(height: 10.h),
+            TxtBody(
+              txt:
+                  "Versatile Palette: This palette effectively addresses acne, redness, under eye darkness, and flaws, offering full coverage through finger or brush application.",
+            ),
+            SizedBox(height: 10.h),
+            TxtBody(
+              txt:
+                  "Easily blendable and buildable, providing dewy finish that lasts all day without feeling heavy or cakey.",
+            ),
+            SizedBox(height: 10.h),
+            TxtBody(
+              txt:
+                  "Long-Lasting Stay: This makeup base foundation palette is suitable for various occasions, including longwear, outdoor/indoor parties, and marriages, providing waterproof and sweat-proof protection",
+            ),
+            SizedBox(height: 30.h),
+            Divider(
+              color: Color.fromARGB(25, 0, 0, 0),
+              indent: 20.w,
+              endIndent: 20.w,
+              thickness: 1,
+            ),
+            SizedBox(height: 20.h),
+            Row(
+              children: [
+                SizedBox(width: 20.w),
+                Text(
+                  "Reviews",
+                  style: GoogleFonts.inter(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Color.fromARGB(255, 16, 27, 1),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  width: 75.w,
+                  height: 36.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.r),
+                    color: Color.fromARGB(25, 150, 28, 130),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "View All",
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13.sp,
+                        color: textColor,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20.w),
+              ],
+            ),
+            SizedBox(height: 16.h),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 200.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.r),
+                  border: Border.all(color: Colors.grey, width: 1.w),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 15.w,
+                        right: 15.w,
+                        top: 15.h,
+                      ),
+                      child: Text(
+                        " absolutely love the 12 Shades-Effortless Blending palette! The range of shades is perfect for my Indian skin tone, and the formula blends seamlessly for a natural look. It feels so light on my skin, yet provides amazing coverage for blemishes and dark circles. Plus, it lasts all day without any heaviness. Whether I m going to a wedding or just out with friends, this palette is my go-to!",
+                        style: GoogleFonts.inter(
+                          letterSpacing: -0.1,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromARGB(255, 102, 102, 102),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 15.w,
+                        right: 15.w,
+                        top: 15.h,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Emily Chelan",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11.sp,
+                              color: textColor,
+                            ),
+                          ),
+                          Text(
+                            "26 jan 2025",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 11.sp,
+                              color: Color.fromARGB(255, 102, 102, 102),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 30.h),
+            Divider(
+              color: Color.fromARGB(25, 0, 0, 0),
+              // indent: 20.w,
+              // endIndent: 20.w,
+              thickness: 1,
+            ),
+            SizedBox(height: 20.h),
+            Row(
+              children: [
+                SizedBox(width: 20.w),
+                Text(
+                  "Related Products",
+                  style: GoogleFonts.inter(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Color.fromARGB(255, 16, 27, 1),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  width: 75.w,
+                  height: 36.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.r),
+                    color: Color.fromARGB(25, 150, 28, 130),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "View All",
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13.sp,
+                        color: textColor,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20.w),
+              ],
+            ),
+            SizedBox(height: 20.w),
+            DealsBody(showDiscount: true),
+            SizedBox(height: 30.h),
           ],
         ),
       ),
+    );
+  }
+}
+
+class TxtBody extends StatelessWidget {
+  final String txt;
+  const TxtBody({super.key, required this.txt});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(width: 20.w),
+        Container(
+          margin: EdgeInsets.only(top: 5.h),
+          width: 10.w,
+          height: 10.h,
+          decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
+        ),
+        SizedBox(width: 5.w),
+        SizedBox(
+          width: 400.w,
+          child: Padding(
+            padding: EdgeInsets.only(right: 20.w),
+            child: Text(
+              txt,
+              style: GoogleFonts.inter(
+                letterSpacing: -0.1,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(255, 102, 102, 102),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
