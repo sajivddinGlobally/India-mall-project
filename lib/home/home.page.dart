@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/Cart/cart.page.dart';
+import 'package:shopping_app/account/account.page.dart';
+import 'package:shopping_app/account/help.page.dart';
 import 'package:shopping_app/category/category.page.dart';
 import 'package:shopping_app/constant/myColors..dart';
 import 'package:shopping_app/search/search.page.dart';
@@ -463,7 +465,12 @@ class _HomePageState extends State<HomePage> {
               )
               : tabBottom == 1
               ? CategoryPage()
-              : CartPage(),
+              : tabBottom == 2
+              ? CartPage()
+              : tabBottom == 3
+              ? HelpPage()
+              : AccountPage(),
+
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
           setState(() {
@@ -494,10 +501,6 @@ class _HomePageState extends State<HomePage> {
             label: 'Category',
           ),
           BottomNavigationBarItem(icon: Icon(Icons.card_travel), label: 'Cart'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.help_outline),
-            label: 'Help',
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.help_outline),
             label: 'Help',
