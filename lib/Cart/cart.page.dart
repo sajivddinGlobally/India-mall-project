@@ -497,7 +497,28 @@ class _CartPageState extends State<CartPage> {
                 ),
               ),
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 18.h),
+            Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1),
+            SizedBox(height: 17.h),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(MediaQuery.of(context).size.width, 46.h),
+                  backgroundColor: textColor,
+                ),
+                onPressed: () {},
+                child: Text(
+                  "Checkout",
+                  style: GoogleFonts.inter(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20.h),
           ],
         ),
       ),
