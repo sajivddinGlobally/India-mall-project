@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopping_app/account/profile.page.dart';
 import 'package:shopping_app/constant/myColors..dart';
 
 class AccountPage extends StatefulWidget {
@@ -79,9 +80,19 @@ class _AccountPageState extends State<AccountPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SettingBody(
-                      icon: Icon(Icons.person_2_outlined),
-                      name: 'Manage Profile',
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => ProfilePage(),
+                          ),
+                        );
+                      },
+                      child: SettingBody(
+                        icon: Icon(Icons.person_2_outlined),
+                        name: 'Manage Profile',
+                      ),
                     ),
                     SettingBody(
                       icon: Icon(Icons.call_outlined),
