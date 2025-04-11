@@ -15,6 +15,8 @@ class ParticularSearchPage extends StatefulWidget {
 class _ParticularSearchPageState extends State<ParticularSearchPage> {
   int tab = 0;
   int count = 0;
+  bool isFavorite = false;
+
   void increment() {
     setState(() {
       count++;
@@ -475,7 +477,7 @@ class _ParticularSearchPageState extends State<ParticularSearchPage> {
             ),
             SizedBox(height: 20.w),
             DealsBody(showDiscount: true),
-            SizedBox(height: 30.h),
+            SizedBox(height: 100.h),
           ],
         ),
       ),
@@ -490,19 +492,26 @@ class _ParticularSearchPageState extends State<ParticularSearchPage> {
           padding: EdgeInsets.only(left: 20.w, right: 20.w),
           child: Row(
             children: [
-              Container(
-                width: 46.w,
-                height: 46.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  border: Border.all(color: textColor, width: 1.w),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: textColor,
-                    size: 20.sp,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isFavorite = !isFavorite;
+                  });
+                },
+                child: Container(
+                  width: 46.w,
+                  height: 46.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    border: Border.all(color: textColor, width: 1.w),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: textColor,
+                      size: 20.sp,
+                    ),
                   ),
                 ),
               ),
