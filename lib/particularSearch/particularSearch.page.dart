@@ -479,6 +479,75 @@ class _ParticularSearchPageState extends State<ParticularSearchPage> {
           ],
         ),
       ),
+      bottomSheet: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 74.h,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: Color.fromARGB(25, 0, 0, 0))),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: Row(
+            children: [
+              Container(
+                width: 46.w,
+                height: 46.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  border: Border.all(color: textColor, width: 1.w),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.favorite_border,
+                    color: textColor,
+                    size: 20.sp,
+                  ),
+                ),
+              ),
+              SizedBox(width: 10.w),
+              Container(
+                width: 167.w,
+                height: 46.h,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(25, 150, 28, 130),
+                  borderRadius: BorderRadius.circular(30.r),
+                ),
+                child: Center(
+                  child: Text(
+                    "Buy Now",
+                    style: GoogleFonts.inter(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
+                      color: textColor,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 10.w),
+              Container(
+                width: 167.w,
+                height: 46.h,
+                decoration: BoxDecoration(
+                  color: textColor,
+                  borderRadius: BorderRadius.circular(30.r),
+                ),
+                child: Center(
+                  child: Text(
+                    "Add to cart",
+                    style: GoogleFonts.inter(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
