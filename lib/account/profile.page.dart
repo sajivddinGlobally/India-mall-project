@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping_app/account/account.page.dart';
+import 'package:shopping_app/account/order.page.dart';
 import 'package:shopping_app/constant/myColors..dart';
 
 class ProfilePage extends StatefulWidget {
@@ -223,9 +224,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Column(
                       children: [
-                        SettingBody(
-                          icon: Icon(Icons.online_prediction_sharp),
-                          name: 'Manage Order ',
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => OrderPage(),
+                              ),
+                            );
+                          },
+                          child: SettingBody(
+                            icon: Icon(Icons.online_prediction_sharp),
+                            name: 'Manage Order ',
+                          ),
                         ),
                         SettingBody(
                           icon: Icon(Icons.favorite_border),
