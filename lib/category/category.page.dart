@@ -232,9 +232,12 @@ class _CategoryPageState extends State<CategoryPage> {
                   width: 2.w,
                   decoration: BoxDecoration(color: Color.fromARGB(25, 0, 0, 0)),
                 ),
-                SizedBox(width: 10.w),
                 Padding(
-                  padding: EdgeInsets.only(right: 10.w, bottom: 10.h),
+                  padding: EdgeInsets.only(
+                    right: 10.w,
+                    left: 10.w,
+                    bottom: 10.h,
+                  ),
                   child: Container(
                     // height: MediaQuery.of(context).size.height,
                     width: 300.w,
