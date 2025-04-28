@@ -99,10 +99,11 @@ class _WhishlistPageState extends State<WhishlistPage> {
                 SizedBox(width: 20.w),
               ],
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 24.h),
             Padding(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: GridView.builder(
+                padding: EdgeInsets.zero,
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: whishList.length,
@@ -110,7 +111,7 @@ class _WhishlistPageState extends State<WhishlistPage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 10.w,
                   mainAxisSpacing: 10.h,
-                  childAspectRatio: 0.58,
+                  childAspectRatio: 0.60,
                 ),
                 itemBuilder: (context, index) {
                   return Column(

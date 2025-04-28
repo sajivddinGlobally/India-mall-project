@@ -340,7 +340,6 @@ class _CategoryPageState extends State<CategoryPage> {
                 ),
               ],
             ),
-            SizedBox(height: 100.h),
           ],
         ),
       ),
