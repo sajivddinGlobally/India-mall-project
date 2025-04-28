@@ -132,7 +132,7 @@ class _SearchPageState extends State<SearchPage> {
                     width: 300.w,
                     child: TextField(
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 8.h, right: 8.w),
+                        contentPadding: EdgeInsets.only(left: 8.h, right: 20.w),
                         prefixIcon: Icon(
                           Icons.search,
                           size: 20.sp,

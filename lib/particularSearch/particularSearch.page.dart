@@ -263,7 +263,7 @@ class _ParticularSearchPageState extends State<ParticularSearchPage> {
                             "-",
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Color.fromARGB(180, 0, 0, 0),
                               fontSize: 25.sp,
                             ),
                           ),
@@ -274,8 +274,8 @@ class _ParticularSearchPageState extends State<ParticularSearchPage> {
                           count.toString(),
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 25.sp,
+                            color: Color.fromARGB(180, 0, 0, 0),
+                            fontSize: 20.sp,
                           ),
                         ),
                         Spacer(),
@@ -287,12 +287,11 @@ class _ParticularSearchPageState extends State<ParticularSearchPage> {
                             "+",
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Color.fromARGB(180, 0, 0, 0),
                               fontSize: 25.sp,
                             ),
                           ),
                         ),
-
                         SizedBox(width: 20.w),
                       ],
                     ),
