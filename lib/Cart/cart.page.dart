@@ -325,7 +325,7 @@ class _CartPageState extends State<CartPage> {
                     contentPadding: EdgeInsets.only(
                       left: 10.w,
                       right: 10.w,
-                      top: 10.h,
+                      // top: 5.h,
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.r),

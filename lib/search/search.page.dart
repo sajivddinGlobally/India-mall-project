@@ -270,7 +270,6 @@ class _SearchPageState extends State<SearchPage> {
                             ),
                           ],
                         ),
-
                         SizedBox(height: 15.h),
                         Row(
                           children: [

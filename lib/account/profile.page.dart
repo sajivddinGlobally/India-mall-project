@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping_app/account/account.page.dart';
 import 'package:shopping_app/account/order.page.dart';
+import 'package:shopping_app/category/whishlist.page.dart';
 import 'package:shopping_app/constant/myColors..dart';
 
 class ProfilePage extends StatefulWidget {
@@ -239,10 +240,20 @@ class _ProfilePageState extends State<ProfilePage> {
                             isShowdivider: true,
                           ),
                         ),
-                        SettingBody(
-                          icon: Icon(Icons.favorite_border),
-                          name: 'Manage Wishlist ',
-                          isShowdivider: true,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => WhishlistPage(),
+                              ),
+                            );
+                          },
+                          child: SettingBody(
+                            icon: Icon(Icons.favorite_border),
+                            name: 'Manage Wishlist ',
+                            isShowdivider: true,
+                          ),
                         ),
                         SettingBody(
                           icon: Icon(Icons.location_on_sharp),
