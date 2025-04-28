@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/Cart/cart.page.dart';
 import 'package:shopping_app/account/account.page.dart';
-import 'package:shopping_app/account/help.page.dart';
 import 'package:shopping_app/category/category.page.dart';
 import 'package:shopping_app/constant/myColors..dart';
 import 'package:shopping_app/search/search.page.dart';
