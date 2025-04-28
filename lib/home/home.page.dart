@@ -467,10 +467,7 @@ class _HomePageState extends State<HomePage> {
               ? CategoryPage()
               : tabBottom == 2
               ? CartPage()
-              : tabBottom == 3
-              ? HelpPage()
               : AccountPage(),
-
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
           setState(() {
@@ -501,10 +498,10 @@ class _HomePageState extends State<HomePage> {
             label: 'Category',
           ),
           BottomNavigationBarItem(icon: Icon(Icons.card_travel), label: 'Cart'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.help_outline),
-            label: 'Help',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.help_outline),
+          //   label: 'Help',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.perm_identity_sharp),
             label: 'Account',
