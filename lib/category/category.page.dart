@@ -236,10 +236,11 @@ class _CategoryPageState extends State<CategoryPage> {
                 Padding(
                   padding: EdgeInsets.only(right: 10.w, bottom: 10.h),
                   child: Container(
-                    height: MediaQuery.of(context).size.height + 150,
+                    // height: MediaQuery.of(context).size.height,
                     width: 300.w,
                     // color: Colors.amber,
                     child: GridView.builder(
+                      padding: EdgeInsets.zero, // 👈 Yeh line add karo
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: categoryList.length,
