@@ -35,30 +35,30 @@ class _CategoryPageState extends State<CategoryPage> {
             Row(
               children: [
                 SizedBox(width: 20.w),
-                GestureDetector(
-                  child: Container(
-                    width: 44.w,
-                    height: 44.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      border: Border.all(
-                        color: Color.fromARGB(25, 0, 0, 0),
-                        width: 1.w,
-                      ),
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 8.w),
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: Color.fromARGB(255, 16, 27, 1),
-                          size: 20.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   child: Container(
+                //     width: 44.w,
+                //     height: 44.h,
+                //     decoration: BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       color: Color.fromARGB(255, 255, 255, 255),
+                //       border: Border.all(
+                //         color: Color.fromARGB(25, 0, 0, 0),
+                //         width: 1.w,
+                //       ),
+                //     ),
+                //     child: Center(
+                //       child: Padding(
+                //         padding: EdgeInsets.only(left: 8.w),
+                //         child: Icon(
+                //           Icons.arrow_back_ios,
+                //           color: Color.fromARGB(255, 16, 27, 1),
+                //           size: 20.sp,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(width: 8.w),
                 Text(
                   "Categories ",
