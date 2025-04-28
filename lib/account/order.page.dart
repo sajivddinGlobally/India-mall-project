@@ -12,13 +12,9 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
-  List<Map<String,String>> orderList = [
-    {
-      "imageUrl" : "assets/detailslip.png",
-    },
-     {
-      "imageUrl" : "assets/makup.png",
-    }
+  List<Map<String, String>> orderList = [
+    {"imageUrl": "assets/detailslip.png"},
+    {"imageUrl": "assets/makup.png"},
   ];
   @override
   Widget build(BuildContext context) {
@@ -185,7 +181,7 @@ class _OrderPageState extends State<OrderPage> {
                               ),
                               child: Center(
                                 child: Icon(
-                                  Icons.location_on_sharp,
+                                  Icons.location_on_outlined,
                                   size: 20.sp,
                                   color: textColor,
                                 ),
