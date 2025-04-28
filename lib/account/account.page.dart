@@ -67,7 +67,7 @@ class _AccountPageState extends State<AccountPage> {
             padding: EdgeInsets.only(left: 20.w, right: 20.w),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 450.h,
+              height: 404.h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
@@ -92,27 +92,33 @@ class _AccountPageState extends State<AccountPage> {
                       child: SettingBody(
                         icon: Icon(Icons.person_2_outlined),
                         name: 'Manage Profile',
+                        isShowdivider: true,
                       ),
                     ),
                     SettingBody(
                       icon: Icon(Icons.call_outlined),
                       name: 'WhatsApp Support',
+                      isShowdivider: true,
                     ),
                     SettingBody(
                       icon: Icon(Icons.local_shipping_outlined),
                       name: 'Shipping Policy',
+                      isShowdivider: true,
                     ),
                     SettingBody(
                       icon: Icon(Icons.receipt_long_rounded),
                       name: 'Return & Refund Policy',
+                      isShowdivider: true,
                     ),
                     SettingBody(
                       icon: Icon(Icons.privacy_tip_outlined),
                       name: 'Privacy Policy',
+                      isShowdivider: true,
                     ),
                     SettingBody(
                       icon: Icon(Icons.blinds_closed),
                       name: 'Billing Terms and Payment',
+                      isShowdivider: false,
                     ),
                   ],
                 ),
@@ -128,7 +134,13 @@ class _AccountPageState extends State<AccountPage> {
 class SettingBody extends StatelessWidget {
   final Icon icon;
   final String name;
-  const SettingBody({super.key, required this.icon, required this.name});
+  final bool isShowdivider;
+  const SettingBody({
+    super.key,
+    required this.icon,
+    required this.name,
+    required this.isShowdivider,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +165,9 @@ class SettingBody extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10.h),
-        Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1),
+        isShowdivider
+            ? Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1)
+            : Container(),
       ],
     );
   }

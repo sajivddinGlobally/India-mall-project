@@ -236,15 +236,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: SettingBody(
                             icon: Icon(Icons.online_prediction_sharp),
                             name: 'Manage Order ',
+                            isShowdivider: true,
                           ),
                         ),
                         SettingBody(
                           icon: Icon(Icons.favorite_border),
                           name: 'Manage Wishlist ',
+                          isShowdivider: true,
                         ),
                         SettingBody(
                           icon: Icon(Icons.location_on_sharp),
                           name: 'Manage Address',
+                          isShowdivider: true,
                         ),
                         SizedBox(height: 10.h),
                         Row(
