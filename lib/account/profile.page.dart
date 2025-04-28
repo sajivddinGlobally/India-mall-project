@@ -128,8 +128,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       showOptions();
                     },
                     child: Container(
-                      width: 100,
-                      height: 100,
+                      width: 100.w,
+                      height: 100.h,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color.fromARGB(255, 249, 242, 238),
@@ -146,17 +146,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                               )
-                              : ClipOval(
-                                child: SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: Image.file(
-                                    _image!,
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                              : CircleAvatar(
+                                radius: 50.r,
+                                backgroundImage: FileImage(_image!),
+                                backgroundColor: Colors.transparent,
                               ),
                     ),
                   ),
