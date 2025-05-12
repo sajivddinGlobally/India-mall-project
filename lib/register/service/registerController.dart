@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopping_app/login/login.page.dart';
 
 class RegisterController {
   static Future<Map<String, dynamic>> register({
@@ -38,11 +40,16 @@ class RegisterController {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text("Your account was created")));
+        Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(builder: (context) => LoginPage()),
+          (route) => false,
+        );
         return data;
       } else {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(data.entries.toString())));
+        ).showSnackBar(SnackBar(content: Text(data['message'].toString())));
         throw Exception("Register Failed:${response.reasonPhrase}");
       }
     } catch (e) {

@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 RegisterBody(
                   title: "Password",
                   hinttext: "Enter Your Password",
-                  controller: emailController,
+                  controller: passwordController,
                   type: TextInputType.visiblePassword,
                 ),
                 SizedBox(height: 20.h),
