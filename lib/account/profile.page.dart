@@ -7,7 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shopping_app/account/account.page.dart';
 import 'package:shopping_app/account/order.page.dart';
 import 'package:shopping_app/category/whishlist.page.dart';
-import 'package:shopping_app/constant/myColors..dart';
+import 'package:shopping_app/constant/myColors.dart';
+import 'package:shopping_app/login/login.page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -277,24 +278,32 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(height: 10.h),
                     Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1),
                     SizedBox(height: 10.h),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.login,
-                          color: Color.fromARGB(255, 255, 0, 0),
-                        ),
-                        SizedBox(width: 8.w),
-                        Text(
-                          "Login",
-                          style: GoogleFonts.inter(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w400,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.login,
                             color: Color.fromARGB(255, 255, 0, 0),
                           ),
-                        ),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios, size: 20.sp),
-                      ],
+                          SizedBox(width: 8.w),
+                          Text(
+                            "Login",
+                            style: GoogleFonts.inter(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromARGB(255, 255, 0, 0),
+                            ),
+                          ),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios, size: 20.sp),
+                        ],
+                      ),
                     ),
                   ],
                 ),

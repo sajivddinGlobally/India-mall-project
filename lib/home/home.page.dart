@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:shopping_app/Cart/cart.page.dart';
 import 'package:shopping_app/account/account.page.dart';
 import 'package:shopping_app/category/category.page.dart';
-import 'package:shopping_app/constant/myColors..dart';
+import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/search/search.page.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +20,8 @@ class _HomePageState extends State<HomePage> {
   int tabBottom = 0;
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box("data");
+
     return Scaffold(
       backgroundColor: defaultColor,
       body:
@@ -45,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Hello User Name",
+                              "${box.get("name") ?? "Hello"}",
                               style: GoogleFonts.inter(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16.sp,
