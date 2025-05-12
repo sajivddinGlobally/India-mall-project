@@ -269,6 +269,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 builder: (context) => HomePage(),
                               ),
                             );
+                            Fluttertoast.showToast(msg: "Delete your account");
                           },
                           child: Row(
                             children: [
