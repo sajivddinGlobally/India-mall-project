@@ -210,41 +210,54 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             isLogin = true;
                           });
 
-                          final tokenResponse = await ref.read(
-                            tokenProvider(
-                              TokenBodyModel(
-                                username: "newadmin",
-                                password: "SecurePass123",
-                              ),
-                            ).future,
-                          );
-
-                          log("Token: ${tokenResponse.token}");
-                          var box = Hive.box("data");
-                          await box.put("token", tokenResponse.token);
-
-                          final body = LoginBodyModel(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-
-                          await ref
-                              .read(loginControllerProvider.notifier)
-                              .login(body);
-
-                          final loginState = ref.read(loginControllerProvider);
-
-                          if (loginState is LoginSuccess) {
-                            Fluttertoast.showToast(msg: "Login Successful");
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                              (route) => false,
+                          try {
+                            /// ✅ Pehle Login API call karo
+                            final body = LoginBodyModel(
+                              email: emailController.text,
+                              password: passwordController.text,
                             );
-                          } else if (loginState is LoginError) {
-                            Fluttertoast.showToast(msg: "Login Failed");
+
+                            await ref
+                                .read(loginControllerProvider.notifier)
+                                .login(body);
+
+                            final loginState = ref.read(
+                              loginControllerProvider,
+                            );
+
+                            /// ✅ Agar login success hua to hi token API call karna
+                            if (loginState is LoginSuccess) {
+                              Fluttertoast.showToast(msg: "Login Successful");
+
+                              /// ✅ Ab token API call karo
+                              final tokenResponse = await ref.read(
+                                tokenProvider(
+                                  TokenBodyModel(
+                                    username: "newadmin",
+                                    password: "SecurePass123",
+                                  ),
+                                ).future,
+                              );
+
+                              log("Token: ${tokenResponse.token}");
+
+                              var box = Hive.box("data");
+                              await box.put("token", tokenResponse.token);
+
+                              /// ✅ Navigate to HomePage
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => HomePage(),
+                                ),
+                                (route) => false,
+                              );
+                            } else if (loginState is LoginError) {
+                              Fluttertoast.showToast(msg: "Login Failed");
+                            }
+                          } catch (e) {
+                            Fluttertoast.showToast(msg: "Something went wrong");
+                            log(e.toString());
                           }
 
                           setState(() {
