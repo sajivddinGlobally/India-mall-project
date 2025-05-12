@@ -269,7 +269,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 builder: (context) => HomePage(),
                               ),
                             );
-                            Fluttertoast.showToast(msg: "Delete your account");
+                            Fluttertoast.showToast(
+                              msg: "Delete your account",
+                              backgroundColor: textColor,
+                              textColor: Colors.white,
+                            );
                           },
                           child: Row(
                             children: [
@@ -336,7 +340,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               builder: (context) => HomePage(),
                             ),
                           );
-                          Fluttertoast.showToast(msg: "Logout Successful");
+                          Fluttertoast.showToast(
+                            msg: "Logout Successful",
+                            backgroundColor: textColor,
+                            textColor: Colors.white,
+                          );
                         },
                         child: Row(
                           children: [

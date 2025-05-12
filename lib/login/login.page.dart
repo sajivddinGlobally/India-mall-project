@@ -250,12 +250,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 ),
                                 (route) => false,
                               );
-                              Fluttertoast.showToast(msg: "Login Successful");
+                              Fluttertoast.showToast(
+                                msg: "Login Successful",
+                                backgroundColor: textColor,
+                                textColor: Colors.white,
+                              );
                             } else if (loginState is LoginError) {
-                              Fluttertoast.showToast(msg: "Login Failed");
+                              Fluttertoast.showToast(
+                                msg: "Login Failed",
+                                backgroundColor: textColor,
+                                textColor: Colors.white,
+                              );
                             }
                           } catch (e) {
-                            Fluttertoast.showToast(msg: "Something went wrong");
+                            Fluttertoast.showToast(
+                              msg: "Something went wrong",
+                              backgroundColor: textColor,
+                              textColor: Colors.white,
+                            );
                             log(e.toString());
                           }
 
