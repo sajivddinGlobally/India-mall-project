@@ -144,9 +144,9 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                         child: Image.network(
                           // "assets/detailslip.png",
                           particular.imageUrl,
-                          width: 400.w,
-                          height: 388.h,
-                          fit: BoxFit.cover,
+                          // width: 400.w,
+                          // height: 300.h,
+                          // fit: BoxFit.cover,
                         ),
                       ),
                       SizedBox(height: 10.h),
