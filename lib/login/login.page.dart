@@ -227,8 +227,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                             /// ✅ Agar login success hua to hi token API call karna
                             if (loginState is LoginSuccess) {
-                              Fluttertoast.showToast(msg: "Login Successful");
-
                               /// ✅ Ab token API call karo
                               final tokenResponse = await ref.read(
                                 tokenProvider(
@@ -252,6 +250,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 ),
                                 (route) => false,
                               );
+                              Fluttertoast.showToast(msg: "Login Successful");
                             } else if (loginState is LoginError) {
                               Fluttertoast.showToast(msg: "Login Failed");
                             }
