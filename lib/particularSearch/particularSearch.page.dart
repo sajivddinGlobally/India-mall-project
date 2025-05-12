@@ -141,7 +141,7 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10.r),
-                        child: Image.asset(
+                        child: Image.network(
                           // "assets/detailslip.png",
                           particular.imageUrl,
                           width: 400.w,
