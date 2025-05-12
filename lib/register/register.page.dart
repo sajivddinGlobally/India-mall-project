@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/login/login.page.dart';
+import 'package:shopping_app/register/service/registerController.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -17,150 +20,168 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final phoneController = TextEditingController();
+  bool isRegister = false;
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: defaultColor,
-      body: Padding(
-        padding: EdgeInsets.only(left: 20.w, right: 20.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 60.h),
-            Text(
-              "Sign Up",
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w600,
-                fontSize: 30.sp,
-                color: Color.fromARGB(255, 16, 27, 1),
-              ),
-            ),
-            SizedBox(height: 40.h),
-            RegisterBody(
-              title: "Name",
-              hinttext: "Enter Your Name",
-              controller: nameController,
-              type: TextInputType.name,
-            ),
-            SizedBox(height: 20.h),
-            RegisterBody(
-              title: "Email",
-              hinttext: "Enter Your Email",
-              controller: emailController,
-              type: TextInputType.emailAddress,
-            ),
-            SizedBox(height: 20.h),
-            RegisterBody(
-              title: "Password",
-              hinttext: "Enter Your Password",
-              controller: emailController,
-              type: TextInputType.visiblePassword,
-            ),
-            SizedBox(height: 20.h),
-            Text(
-              "Phone ",
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w400,
-                fontSize: 15.sp,
-                color: Color.fromARGB(255, 16, 27, 1),
-              ),
-            ),
-            SizedBox(height: 10.h),
-            TextFormField(
-              maxLength: 10,
-              keyboardType: TextInputType.phone,
-              controller: phoneController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 20.w, right: 20.w),
-                hintText: "Enter Your Phone Number",
-                hintStyle: GoogleFonts.inter(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
-                  color: Color.fromARGB(255, 153, 153, 153),
-                ),
-                counterText: '',
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(25, 0, 0, 0),
-                    width: 1.w,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.r),
-                  borderSide: BorderSide(
-                    color: Color.fromARGB(25, 0, 0, 0),
-                    width: 1.w,
-                  ),
-                ),
-                errorBorder: UnderlineInputBorder(
-                  borderRadius: BorderRadius.circular(35.45.r),
-                  borderSide: BorderSide.none,
-                ),
-                focusedErrorBorder: UnderlineInputBorder(
-                  borderRadius: BorderRadius.circular(35.45.r),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Phone Number is required';
-                }
-                return null;
-              },
-            ),
-
-            SizedBox(height: 30.h),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(MediaQuery.of(context).size.width, 46.h),
-                backgroundColor: textColor,
-              ),
-              onPressed: () async {},
-              child: Text(
-                "Sign In",
-                style: GoogleFonts.inter(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ),
-              // : CircularProgressIndicator(
-              //   color: Colors.white,
-              // ),
-            ),
-            SizedBox(height: 20.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 60.h),
                 Text(
-                  "Already have an account?",
+                  "Sign Up",
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 30.sp,
+                    color: Color.fromARGB(255, 16, 27, 1),
+                  ),
+                ),
+                SizedBox(height: 40.h),
+                RegisterBody(
+                  title: "Name",
+                  hinttext: "Enter Your Name",
+                  controller: nameController,
+                  type: TextInputType.name,
+                ),
+                SizedBox(height: 20.h),
+                RegisterBody(
+                  title: "Email",
+                  hinttext: "Enter Your Email",
+                  controller: emailController,
+                  type: TextInputType.emailAddress,
+                ),
+                SizedBox(height: 20.h),
+                RegisterBody(
+                  title: "Password",
+                  hinttext: "Enter Your Password",
+                  controller: emailController,
+                  type: TextInputType.visiblePassword,
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  "Phone ",
                   style: GoogleFonts.inter(
                     fontWeight: FontWeight.w400,
                     fontSize: 15.sp,
                     color: Color.fromARGB(255, 16, 27, 1),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(builder: (context) => LoginPage()),
-                    );
-                  },
-                  child: Text(
-                    "Login",
-                    style: GoogleFonts.inter(
+                SizedBox(height: 10.h),
+                TextFormField(
+                  maxLength: 10,
+                  keyboardType: TextInputType.phone,
+                  controller: phoneController,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 20.w, right: 20.w),
+                    hintText: "Enter Your Phone Number",
+                    hintStyle: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
-                      fontSize: 18.sp,
-                      color: textColor,
+                      fontSize: 16.sp,
+                      color: Color.fromARGB(255, 153, 153, 153),
+                    ),
+                    counterText: '',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
                     ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Phone Number is required';
+                    }
+                    return null;
+                  },
+                ),
+
+                SizedBox(height: 30.h),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(MediaQuery.of(context).size.width, 46.h),
+                    backgroundColor: textColor,
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        setState(() {
+                          isRegister = true;
+                        });
+
+                        await RegisterController.register(
+                          context: context,
+                          name: nameController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
+                          phone: phoneController.text,
+                        );
+                      } catch (e) {
+                        setState(() {
+                          isRegister = false;
+                        });
+                        log(e.toString());
+                      }
+                    }
+                  },
+                  child:
+                      isRegister
+                          ? CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                            "Sign In",
+                            style: GoogleFonts.inter(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15.sp,
+                        color: Color.fromARGB(255, 16, 27, 1),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                      child: Text(
+                        "Login",
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18.sp,
+                          color: textColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -214,17 +235,15 @@ class _RegisterBodyState extends State<RegisterBody> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
-              borderSide: BorderSide(
-                color: Color.fromARGB(25, 0, 0, 0),
-                width: 1.w,
-              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
-              borderSide: BorderSide(
-                color: Color.fromARGB(25, 0, 0, 0),
-                width: 1.w,
-              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.r),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.r),
             ),
           ),
           validator: (value) {
