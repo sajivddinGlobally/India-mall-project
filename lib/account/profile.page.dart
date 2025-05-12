@@ -2,12 +2,15 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopping_app/account/account.page.dart';
 import 'package:shopping_app/account/order.page.dart';
 import 'package:shopping_app/category/whishlist.page.dart';
 import 'package:shopping_app/constant/myColors.dart';
+import 'package:shopping_app/home/home.page.dart';
 import 'package:shopping_app/login/login.page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -66,6 +69,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box("data");
+    var token = box.get("token");
     return Scaffold(
       backgroundColor: defaultColor,
       body: Column(
@@ -181,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               children: [
                 Text(
-                  "Nick Jones ",
+                  "${box.get("name") ?? "Nick Jones "}",
                   style: GoogleFonts.inter(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
@@ -189,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Text(
-                  "Jonesnick32@gmail.com",
+                  "${box.get("email") ?? "Jonesnick32@gmail.com"}",
                   style: GoogleFonts.inter(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -254,15 +259,54 @@ class _ProfilePageState extends State<ProfilePage> {
                           isShowdivider: true,
                         ),
                         SizedBox(height: 10.h),
-                        Row(
+                        GestureDetector(
+                          onTap: () {
+                            box.delete("token");
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.delete_outline_rounded,
+                                color: Color.fromARGB(255, 255, 0, 0),
+                              ),
+                              SizedBox(width: 8.w),
+                              Text(
+                                "Delete your account ",
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color.fromARGB(255, 255, 0, 0),
+                                ),
+                              ),
+                              Spacer(),
+                              Icon(Icons.arrow_forward_ios, size: 20.sp),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1),
+                    SizedBox(height: 10.h),
+                    if (token == null) ...[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
+                        },
+                        child: Row(
                           children: [
                             Icon(
-                              Icons.delete_outline_rounded,
+                              Icons.login,
                               color: Color.fromARGB(255, 255, 0, 0),
                             ),
                             SizedBox(width: 8.w),
                             Text(
-                              "Delete your account ",
+                              "Login",
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w400,
@@ -273,38 +317,40 @@ class _ProfilePageState extends State<ProfilePage> {
                             Icon(Icons.arrow_forward_ios, size: 20.sp),
                           ],
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1),
-                    SizedBox(height: 10.h),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(builder: (context) => LoginPage()),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.login,
-                            color: Color.fromARGB(255, 255, 0, 0),
-                          ),
-                          SizedBox(width: 8.w),
-                          Text(
-                            "Login",
-                            style: GoogleFonts.inter(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w400,
+                      ),
+                    ] else ...[
+                      GestureDetector(
+                        onTap: () {
+                          box.clear();
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => HomePage(),
+                            ),
+                          );
+                          Fluttertoast.showToast(msg: "Logout Successful");
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
                               color: Color.fromARGB(255, 255, 0, 0),
                             ),
-                          ),
-                          Spacer(),
-                          Icon(Icons.arrow_forward_ios, size: 20.sp),
-                        ],
+                            SizedBox(width: 8.w),
+                            Text(
+                              "Logout",
+                              style: GoogleFonts.inter(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromARGB(255, 255, 0, 0),
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(Icons.arrow_forward_ios, size: 20.sp),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),

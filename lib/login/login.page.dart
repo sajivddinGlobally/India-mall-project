@@ -12,6 +12,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/home/home.page.dart';
 import 'package:shopping_app/login/model/loginBodyModel.dart';
+import 'package:shopping_app/login/model/tokenBodyModel.dart';
 import 'package:shopping_app/login/service/login.state.dart';
 import 'package:shopping_app/login/service/loginController.dart';
 
@@ -31,6 +32,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final loginData = ref.watch(loginControllerProvider);
+
     return Scaffold(
       backgroundColor: defaultColor,
       appBar: AppBar(
@@ -203,36 +205,22 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           backgroundColor: textColor,
                         ),
                         onPressed: () async {
-                          // setState(() {
-                          //   isLogin = true;
-                          // });
-                          // try {
-                          //   final body = LoginBodyModel(
-                          //     email: emailController.text,
-                          //     password: int.parse(passwordController.text),
-                          //   );
-                          //   await ref
-                          //       .read(loginControllerProvider.notifier)
-                          //       .login(body);
-
-                          //   Navigator.pushAndRemoveUntil(
-                          //     context,
-                          //     CupertinoPageRoute(
-                          //       builder: (context) => HomePage(),
-                          //     ),
-                          //     (route) => false,
-                          //   );
-                          //   Fluttertoast.showToast(msg: "Login Successful");
-                          // } catch (e) {
-                          //   setState(() {
-                          //     isLogin = false;
-                          //   });
-                          //   log(e.toString());
-                          // }
-
                           setState(() {
                             isLogin = true;
                           });
+
+                          final tokenResponse = await ref.read(
+                            tokenProvider(
+                              TokenBodyModel(
+                                username: "newadmin",
+                                password: "SecurePass123",
+                              ),
+                            ).future,
+                          );
+
+                          log("Token: ${tokenResponse.token}");
+                          var box = Hive.box("data");
+                          await box.put("token", tokenResponse.token);
 
                           final body = LoginBodyModel(
                             email: emailController.text,
