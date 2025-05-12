@@ -15,6 +15,7 @@ import 'package:shopping_app/login/model/loginBodyModel.dart';
 import 'package:shopping_app/login/model/tokenBodyModel.dart';
 import 'package:shopping_app/login/service/login.state.dart';
 import 'package:shopping_app/login/service/loginController.dart';
+import 'package:shopping_app/register/register.page.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -263,6 +264,39 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 : CircularProgressIndicator(
                                   color: Colors.white,
                                 ),
+                      ),
+                      SizedBox(height: 20.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don't have an account?",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 15.sp,
+                              color: Color.fromARGB(255, 16, 27, 1),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => RegisterPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Sign In",
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18.sp,
+                                color: textColor,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

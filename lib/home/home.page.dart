@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               "${box.get("name") ?? "Hello"}",
-                              style: GoogleFonts.inter(
+                              style: GoogleFonts.inter( 
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16.sp,
                                 color: Color.fromARGB(255, 16, 27, 1),

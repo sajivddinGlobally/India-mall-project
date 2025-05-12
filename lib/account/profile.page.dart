@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -261,7 +262,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(height: 10.h),
                         GestureDetector(
                           onTap: () {
-                            box.delete("token");
+                            box.clear();
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
                           },
                           child: Row(
                             children: [
