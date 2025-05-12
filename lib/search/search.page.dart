@@ -225,7 +225,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                       context,
                                       CupertinoPageRoute(
                                         builder:
-                                            (context) => ParticularSearchPage(),
+                                            (context) => ParticularSearchPage(id: product[index].id,),
                                       ),
                                     );
                                   },
@@ -243,41 +243,41 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                   ),
                                 ),
 
-                                Positioned(
-                                  top: 19.h,
-                                  child: Image.asset(
-                                    // "assets/of.png"
-                                    searchList[index]['ofImage'].toString(),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 20.h,
-                                  left: 15.w,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        // "20%",
-                                        searchList[index]['text'].toString(),
-                                        style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 18.sp,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Text(
-                                        // "OFF",
-                                        searchList[index]['offtext'].toString(),
-                                        style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15.sp,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                // Positioned(
+                                //   top: 19.h,
+                                //   child: Image.asset(
+                                //     // "assets/of.png"
+                                //     searchList[index]['ofImage'].toString(),
+                                //   ),
+                                // ),
+                                // Positioned(
+                                //   top: 20.h,
+                                //   left: 15.w,
+                                //   child: Column(
+                                //     crossAxisAlignment:
+                                //         CrossAxisAlignment.start,
+                                //     children: [
+                                //       Text(
+                                //         // "20%",
+                                //         searchList[index]['text'].toString(),
+                                //         style: GoogleFonts.inter(
+                                //           fontWeight: FontWeight.w600,
+                                //           fontSize: 18.sp,
+                                //           color: Colors.white,
+                                //         ),
+                                //       ),
+                                //       Text(
+                                //         // "OFF",
+                                //         searchList[index]['offtext'].toString(),
+                                //         style: GoogleFonts.inter(
+                                //           fontWeight: FontWeight.w400,
+                                //           fontSize: 15.sp,
+                                //           color: Colors.white,
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
                             SizedBox(height: 15.h),
@@ -358,7 +358,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 );
               },
               error: (error, stackTrace) => Center(child: Text(e.toString())),
-              loading: () => Center(child: CircularProgressIndicator()),
+              loading:
+                  () => SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
             ),
             SizedBox(height: 40.h),
           ],

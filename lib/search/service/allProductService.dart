@@ -10,4 +10,7 @@ abstract class AllProductService {
 
   @GET('/indiamall/v1/products')
   Future<List<AllProductModel>> allProduct();
+
+  @GET('/indiamall/v1/products/{id}')
+  Future<AllProductModel> particularProduct(@Path() String id);
 }

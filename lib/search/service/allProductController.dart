@@ -7,3 +7,9 @@ final allProductProvider = FutureProvider<List<AllProductModel>>((ref) async {
   final allproduct = AllProductService(await createDio());
   return allproduct.allProduct();
 });
+
+final particularProviderController =
+    FutureProvider.family<AllProductModel, String>((ref, id) async {
+      final particuler = AllProductService(await createDio());
+      return particuler.particularProduct(id);
+    });
