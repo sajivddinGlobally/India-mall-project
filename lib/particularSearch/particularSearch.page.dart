@@ -45,7 +45,7 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
     return Scaffold(
       backgroundColor: defaultColor,
       body: particulerProduct.when(
-        data: (data) {
+        data: (particular) {
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +142,8 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10.r),
                         child: Image.asset(
-                          "assets/detailslip.png",
+                          // "assets/detailslip.png",
+                          particular.imageUrl,
                           width: 400.w,
                           height: 388.h,
                           fit: BoxFit.cover,
@@ -219,7 +220,8 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, right: 20.w),
                   child: Text(
-                    "Huda Professional Set of 4 Liquid Matte Mini Red Lipsticks (Red Edition) – Long Lasting & Waterproof Combo Pack Of Red, Deep Red, Wine and Pink Shades | For women",
+                    // "Huda Professional Set of 4 Liquid Matte Mini Red Lipsticks (Red Edition) – Long Lasting & Waterproof Combo Pack Of Red, Deep Red, Wine and Pink Shades | For women",
+                    particular.name,
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w500,
                       fontSize: 18.sp,
@@ -232,7 +234,8 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 20.w),
                   child: Text(
-                    "\$450.00",
+                    //  "\$450.00",
+                    particular.regularPrice,
                     style: GoogleFonts.inter(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600,
@@ -492,8 +495,8 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
             ),
           );
         },
-        error: (error, stackTrace) => Center(child: Text(e.toString()),),
-        loading: () => Center(child: CircularProgressIndicator(),),
+        error: (error, stackTrace) => Center(child: Text(e.toString())),
+        loading: () => Center(child: CircularProgressIndicator()),
       ),
       bottomSheet: Container(
         width: MediaQuery.of(context).size.width,
