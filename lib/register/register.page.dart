@@ -82,28 +82,28 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                         width: 1.w,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                        width: 1.w,
                       ),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                        width: 1.w,
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                        width: 1.w,
                       ),
                     ),
                   ),
@@ -152,28 +152,28 @@ class _RegisterPageState extends State<RegisterPage> {
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                        width: 1.w,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                        width: 1.w,
                       ),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                        width: 1.w,
                       ),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15.r),
                       borderSide: BorderSide(
                         color: Color.fromARGB(25, 0, 0, 0),
-                        width: 2.w,
+                        width: 1.w,
                       ),
                     ),
                   ),
@@ -314,28 +314,28 @@ class _RegisterBodyState extends State<RegisterBody> {
               borderRadius: BorderRadius.circular(15.r),
               borderSide: BorderSide(
                 color: Color.fromARGB(25, 0, 0, 0),
-                width: 2.w,
+                 width: 1.w,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
               borderSide: BorderSide(
                 color: Color.fromARGB(25, 0, 0, 0),
-                width: 2.w,
+                 width: 1.w,
               ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
               borderSide: BorderSide(
                 color: Color.fromARGB(25, 0, 0, 0),
-                width: 2.w,
+                 width: 1.w,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
               borderSide: BorderSide(
                 color: Color.fromARGB(25, 0, 0, 0),
-                width: 2.w,
+                 width: 1.w,
               ),
             ),
           ),
