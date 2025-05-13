@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,15 +14,16 @@ import 'package:shopping_app/category/whishlist.page.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/home/home.page.dart';
 import 'package:shopping_app/login/login.page.dart';
+import 'package:shopping_app/search/service/allProductController.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   File? _image;
   final picker = ImagePicker();
 
@@ -340,6 +342,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               builder: (context) => HomePage(),
                             ),
                           );
+                          ref.invalidate(allProductProvider);
                           Fluttertoast.showToast(
                             msg: "Logout Successful",
                             backgroundColor: textColor,

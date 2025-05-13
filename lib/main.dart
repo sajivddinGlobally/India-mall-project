@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     var box = Hive.box("data");
     var token = box.get("token");
     log("/////////////////////////// Welcome");
-    log(token ?? "No taoken found");
+    log(token ?? "No token found");
     return ScreenUtilInit(
       designSize: Size(440, 956),
       minTextAdapt: true,

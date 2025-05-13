@@ -364,7 +364,9 @@ class _CategoryPageState extends ConsumerState<CategoryPage> {
               loading:
                   () => SizedBox(
                     height: MediaQuery.of(context).size.height,
-                    child: Center(child: CircularProgressIndicator()),
+                    child: Center(
+                      child: CircularProgressIndicator(color: textColor),
+                    ),
                   ),
             ),
           ],

@@ -496,7 +496,8 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
           );
         },
         error: (error, stackTrace) => Center(child: Text(e.toString())),
-        loading: () => Center(child: CircularProgressIndicator()),
+        loading:
+            () => Center(child: CircularProgressIndicator(color: textColor)),
       ),
       bottomSheet: Container(
         width: MediaQuery.of(context).size.width,

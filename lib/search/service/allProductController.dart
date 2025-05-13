@@ -13,3 +13,4 @@ final particularProviderController =
       final particuler = AllProductService(await createDio());
       return particuler.particularProduct(id);
     });
+final searchTextProvider = StateProvider<String>((ref) => '');

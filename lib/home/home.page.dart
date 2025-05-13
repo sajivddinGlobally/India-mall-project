@@ -25,15 +25,19 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     var box = Hive.box("data");
+    var Id = box.get("id");
     final productProvider = ref.watch(allProductProvider);
     if (productProvider.isLoading) {
-      return Scaffold(body: Center(child: CircularProgressIndicator()));
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator(color: textColor)),
+      );
     }
     if (productProvider.error != null) {
       return Scaffold(
         body: Center(child: Text("Error:${productProvider.error}")),
       );
     }
+
     return Scaffold(
       backgroundColor: defaultColor,
       body:
