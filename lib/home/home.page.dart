@@ -602,7 +602,7 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
-                  child: Image.asset(
+                  child: Image.network(
                     // "assets/pieces.png",
                     //gridList[index]['lipisticImage'].toString(),
                     product[index].imageUrl,
@@ -687,15 +687,15 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
   }
 }
 
-class DealsBody extends StatefulWidget {
+class DealsBody extends ConsumerStatefulWidget {
   final bool showDiscount;
   const DealsBody({super.key, required this.showDiscount});
 
   @override
-  State<DealsBody> createState() => _DealsBodyState();
+  ConsumerState<DealsBody> createState() => _DealsBodyState();
 }
 
-class _DealsBodyState extends State<DealsBody> {
+class _DealsBodyState extends ConsumerState<DealsBody> {
   List<Map<String, String>> myList = [
     {
       "lipisticImage": "assets/lipistic.png",
@@ -730,138 +730,152 @@ class _DealsBodyState extends State<DealsBody> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 310.h,
-      // color: Colors.yellow,
-      child: ListView.builder(
-        itemCount: myList.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(left: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
+    final productProvider = ref.watch(allProductProvider);
+    return productProvider.when(
+      data: (data) {
+        return Container(
+          height: 310.h,
+          // color: Colors.yellow,
+          child: ListView.builder(
+            itemCount: min(data.length, myList.length),
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.only(left: 20.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12.r),
-                      child: Image.asset(
-                        // "assets/lipistic.png"
-                        width: 166.w,
-                        height: 200.h,
-                        fit: BoxFit.cover,
-                        myList[index]['lipisticImage'].toString(),
-                      ),
-                    ),
-                    widget.showDiscount == true
-                        ? Positioned(
-                          top: 19.h,
-                          child: Image.asset(
-                            // "assets/of.png",
-                            myList[index]['ofImage'].toString(),
+                    Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.r),
+                          child: Image.network(
+                            // "assets/lipistic.png"
+                            width: 166.w,
+                            height: 200.h,
+                            fit: BoxFit.cover,
+                            //myList[index]['lipisticImage'].toString(),
+                            data[index].imageUrl,
                           ),
-                        )
-                        : SizedBox(),
-                    widget.showDiscount
-                        ? Positioned(
-                          top: 20.h,
-                          left: 15.w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
+                        widget.showDiscount == true
+                            ? Positioned(
+                              top: 19.h,
+                              child: Image.asset(
+                                // "assets/of.png",
+                                myList[index]['ofImage'].toString(),
+                              ),
+                            )
+                            : SizedBox(),
+                        widget.showDiscount
+                            ? Positioned(
+                              top: 20.h,
+                              left: 15.w,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    // "20%",
+                                    myList[index]['text'].toString(),
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    // "OFF",
+                                    myList[index]['offtext'].toString(),
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            : SizedBox(),
+                      ],
+                    ),
+                    SizedBox(height: 15.h),
+                    Row(
+                      children: [
+                        Container(
+                          width: 40.w,
+                          height: 20.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.r),
+                            color: textColor,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                // "20%",
-                                myList[index]['text'].toString(),
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18.sp,
-                                  color: Colors.white,
-                                ),
+                              Icon(
+                                Icons.star,
+                                color: Colors.white,
+                                size: 15.sp,
                               ),
                               Text(
-                                // "OFF",
-                                myList[index]['offtext'].toString(),
+                                // "4.5",
+                                myList[index]['rating'].toString(),
                                 style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 10.sp,
                                   color: Colors.white,
                                 ),
                               ),
                             ],
                           ),
-                        )
-                        : SizedBox(),
-                  ],
-                ),
-                SizedBox(height: 15.h),
-                Row(
-                  children: [
-                    Container(
-                      width: 40.w,
-                      height: 20.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.r),
+                        ),
+                        SizedBox(width: 5.w),
+                        Text(
+                          // "(512 reviews)",
+                          myList[index]['review'].toString(),
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10.sp,
+                            color: Color.fromARGB(255, 102, 102, 102),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    SizedBox(
+                      width: 159.w,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        // "5 in 1 Lipstick Red Edition & Nud",
+                       // myList[index]['title'].toString(),
+                                data[index].name,
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12.sp,
+                          color: Color.fromARGB(255, 102, 102, 102),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5.h),
+                    Text(
+                      // "\$450.00",
+                     // myList[index]['ammount'].toString(),
+                     data[index].regularPrice,
+                      style: GoogleFonts.inter(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
                         color: textColor,
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.star, color: Colors.white, size: 15.sp),
-                          Text(
-                            // "4.5",
-                            myList[index]['rating'].toString(),
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 10.sp,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 5.w),
-                    Text(
-                      // "(512 reviews)",
-                      myList[index]['review'].toString(),
-                      style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 10.sp,
-                        color: Color.fromARGB(255, 102, 102, 102),
-                      ),
                     ),
                   ],
                 ),
-                SizedBox(height: 10.h),
-                SizedBox(
-                  width: 159.w,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    // "5 in 1 Lipstick Red Edition & Nud",
-                    myList[index]['title'].toString(),
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp,
-                      color: Color.fromARGB(255, 102, 102, 102),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 5.h),
-                Text(
-                  // "\$450.00",
-                  myList[index]['ammount'].toString(),
-                  style: GoogleFonts.inter(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    color: textColor,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+              );
+            },
+          ),
+        );
+      },
+      error: (error, stackTrace) => Center(child: Text(e.toString())),
+      loading: () => Center(child: CircularProgressIndicator()),
     );
   }
 }
