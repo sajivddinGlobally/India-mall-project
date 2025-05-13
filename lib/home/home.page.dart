@@ -13,19 +13,27 @@ import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/search/search.page.dart';
 import 'package:shopping_app/search/service/allProductController.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   int tabBottom = 0;
   @override
   Widget build(BuildContext context) {
     var box = Hive.box("data");
-
+    final productProvider = ref.watch(allProductProvider);
+    if (productProvider.isLoading) {
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    if (productProvider.error != null) {
+      return Scaffold(
+        body: Center(child: Text("Error:${productProvider.error}")),
+      );
+    }
     return Scaffold(
       backgroundColor: defaultColor,
       body:
@@ -847,8 +855,8 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
                       child: Text(
                         overflow: TextOverflow.ellipsis,
                         // "5 in 1 Lipstick Red Edition & Nud",
-                       // myList[index]['title'].toString(),
-                                data[index].name,
+                        // myList[index]['title'].toString(),
+                        data[index].name,
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.w400,
                           fontSize: 12.sp,
@@ -859,8 +867,8 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
                     SizedBox(height: 5.h),
                     Text(
                       // "\$450.00",
-                     // myList[index]['ammount'].toString(),
-                     data[index].regularPrice,
+                      // myList[index]['ammount'].toString(),
+                      data[index].regularPrice,
                       style: GoogleFonts.inter(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
