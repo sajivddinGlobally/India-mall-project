@@ -602,6 +602,7 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
           shrinkWrap: true,
           itemCount: min(product.length, gridList.length),
 
+          // itemCount: product.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10.w,
@@ -618,7 +619,6 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
                     // "assets/pieces.png",
                     //gridList[index]['lipisticImage'].toString(),
                     product[index].imageUrl,
-                    width: 195.w,
                     height: 240.h,
                     fit: BoxFit.cover,
                   ),
