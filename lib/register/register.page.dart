@@ -51,11 +51,72 @@ class _RegisterPageState extends State<RegisterPage> {
                   type: TextInputType.name,
                 ),
                 SizedBox(height: 20.h),
-                RegisterBody(
-                  title: "Email",
-                  hinttext: "Enter Your Email",
+                // RegisterBody(
+                //   title: "Email",
+                //   hinttext: "Enter Your Email",
+                //   controller: emailController,
+                //   type: TextInputType.emailAddress,
+                // ),
+                Text(
+                  "Email ",
+                  style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15.sp,
+                    color: Color.fromARGB(255, 16, 27, 1),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   controller: emailController,
-                  type: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 20.w, right: 20.w),
+                    hintText: "Enter Your Email",
+                    hintStyle: GoogleFonts.inter(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.sp,
+                      color: Color.fromARGB(255, 153, 153, 153),
+                    ),
+
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(25, 0, 0, 0),
+                        width: 2.w,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(25, 0, 0, 0),
+                        width: 2.w,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(25, 0, 0, 0),
+                        width: 2.w,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                      borderSide: BorderSide(
+                        color: Color.fromARGB(25, 0, 0, 0),
+                        width: 2.w,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email is required';
+                    } else if (!RegExp(
+                      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+                    ).hasMatch(value)) {
+                      return "Please Enter Valid Email Address";
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 20.h),
                 RegisterBody(

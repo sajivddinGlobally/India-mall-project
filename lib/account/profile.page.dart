@@ -342,7 +342,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               builder: (context) => HomePage(),
                             ),
                           );
-                          ref.invalidate(allProductProvider);
+                         // ref.invalidate(allProductProvider);
                           Fluttertoast.showToast(
                             msg: "Logout Successful",
                             backgroundColor: textColor,
