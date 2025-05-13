@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -8,6 +11,7 @@ import 'package:shopping_app/account/account.page.dart';
 import 'package:shopping_app/category/category.page.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/search/search.page.dart';
+import 'package:shopping_app/search/service/allProductController.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               "${box.get("name") ?? "Hello"}",
-                              style: GoogleFonts.inter( 
+                              style: GoogleFonts.inter(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16.sp,
                                 color: Color.fromARGB(255, 16, 27, 1),
@@ -514,14 +518,14 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class GridVeiwBody extends StatefulWidget {
+class GridVeiwBody extends ConsumerStatefulWidget {
   const GridVeiwBody({super.key});
 
   @override
-  State<GridVeiwBody> createState() => _GridVeiwBodyState();
+  ConsumerState<GridVeiwBody> createState() => _GridVeiwBodyState();
 }
 
-class _GridVeiwBodyState extends State<GridVeiwBody> {
+class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
   List<Map<String, String>> gridList = [
     {
       "lipisticImage": "assets/pieces.png",
@@ -578,96 +582,107 @@ class _GridVeiwBodyState extends State<GridVeiwBody> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: gridList.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10.w,
-        mainAxisSpacing: 10.h,
-        childAspectRatio: 0.60,
-      ),
-      itemBuilder: (context, index) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.r),
-              child: Image.asset(
-                // "assets/pieces.png",
-                gridList[index]['lipisticImage'].toString(),
-                width: 195.w,
-                height: 240.h,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(height: 15.h),
-            Row(
+    final productProvider = ref.watch(allProductProvider);
+    return productProvider.when(
+      data: (product) {
+        return GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: min(product.length, gridList.length),
+
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10.w,
+            mainAxisSpacing: 10.h,
+            childAspectRatio: 0.60,
+          ),
+          itemBuilder: (context, index) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 40.w,
-                  height: 20.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.r),
-                    color: textColor,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(Icons.star, color: Colors.white, size: 15.sp),
-                      Text(
-                        // "4.5",
-                        gridList[index]['rating'].toString(),
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 10.sp,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12.r),
+                  child: Image.asset(
+                    // "assets/pieces.png",
+                    //gridList[index]['lipisticImage'].toString(),
+                    product[index].imageUrl,
+                    width: 195.w,
+                    height: 240.h,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(width: 5.w),
+                SizedBox(height: 15.h),
+                Row(
+                  children: [
+                    Container(
+                      width: 40.w,
+                      height: 20.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.r),
+                        color: textColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.star, color: Colors.white, size: 15.sp),
+                          Text(
+                            // "4.5",
+                            gridList[index]['rating'].toString(),
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 5.w),
+                    Text(
+                      // "(512 reviews)",
+                      gridList[index]['review'].toString(),
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 10.sp,
+                        color: Color.fromARGB(255, 102, 102, 102),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.h),
+                SizedBox(
+                  width: 159.w,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    // "5 in 1 Lipstick Red Edition & Nud",
+                    // gridList[index]['title'].toString(),
+                    product[index].name,
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                      color: Color.fromARGB(255, 102, 102, 102),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5.h),
                 Text(
-                  // "(512 reviews)",
-                  gridList[index]['review'].toString(),
+                  // "\$450.00",
+                  //gridList[index]['ammount'].toString(),
+                  product[index].regularPrice,
                   style: GoogleFonts.inter(
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
-                    fontSize: 10.sp,
-                    color: Color.fromARGB(255, 102, 102, 102),
+                    color: textColor,
                   ),
                 ),
               ],
-            ),
-            SizedBox(height: 10.h),
-            SizedBox(
-              width: 159.w,
-              child: Text(
-                overflow: TextOverflow.ellipsis,
-                // "5 in 1 Lipstick Red Edition & Nud",
-                gridList[index]['title'].toString(),
-                style: GoogleFonts.inter(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12.sp,
-                  color: Color.fromARGB(255, 102, 102, 102),
-                ),
-              ),
-            ),
-            SizedBox(height: 5.h),
-            Text(
-              // "\$450.00",
-              gridList[index]['ammount'].toString(),
-              style: GoogleFonts.inter(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: textColor,
-              ),
-            ),
-          ],
+            );
+          },
         );
       },
+      error: (error, stackTrace) => Center(child: Text(e.toString())),
+      loading: () => Center(child: CircularProgressIndicator()),
     );
   }
 }
