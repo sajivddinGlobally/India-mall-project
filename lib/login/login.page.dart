@@ -257,7 +257,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               );
                             } else if (loginState is LoginError) {
                               Fluttertoast.showToast(
-                                msg: "Login Failed",
+                                msg: "Invalid email or password",
                                 backgroundColor: textColor,
                                 textColor: Colors.white,
                               );
