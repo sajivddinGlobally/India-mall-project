@@ -489,7 +489,7 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                   ],
                 ),
                 SizedBox(height: 20.w),
-                DealsBody(showDiscount: true),
+                ReletedProduct(),
                 SizedBox(height: 100.h),
               ],
             ),
@@ -574,6 +574,186 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ReletedProduct extends StatefulWidget {
+  const ReletedProduct({super.key});
+
+  @override
+  State<ReletedProduct> createState() => _ReletedProductState();
+}
+
+class _ReletedProductState extends State<ReletedProduct> {
+  List<Map<String, String>> reletedProductlist = [
+    {
+      "lipisticImage": "assets/lipistic.png",
+      "ofImage": "assets/of.png",
+      "text": "20%",
+      "offtext": "OFF",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "5 in 1 Lipstick Red Edition & Nud",
+      "ammount": "\$450.00",
+    },
+    {
+      "lipisticImage": "assets/butter.png",
+      "ofImage": "assets/of.png",
+      "text": "20%",
+      "offtext": "OFF",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "1 KG Butter Paper for Roti, Cake",
+      "ammount": "\$150.00",
+    },
+    {
+      "lipisticImage": "assets/birthday.png",
+      "ofImage": "assets/of.png",
+      "text": "20%",
+      "offtext": "OFF",
+      "rating": "4.5",
+      "review": "(512 reviews)",
+      "title": "37 Pc Birthday Decoration Items:Red Banner",
+      "ammount": "\$450.00",
+    },
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 310.h,
+      // color: Colors.yellow,
+      child: ListView.builder(
+        itemCount: reletedProductlist.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.only(left: 20.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: Image.asset(
+                          // "assets/lipistic.png"
+                          width: 166.w,
+                          height: 200.h,
+                          fit: BoxFit.cover,
+                          reletedProductlist[index]['lipisticImage'].toString(),
+                        ),
+                      ),
+
+                      Positioned(
+                        top: 19.h,
+                        child: Image.asset(
+                          // "assets/of.png",
+                          reletedProductlist[index]['ofImage'].toString(),
+                        ),
+                      ),
+                      Positioned(
+                        top: 20.h,
+                        left: 15.w,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              // "20%",
+                              reletedProductlist[index]['text'].toString(),
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18.sp,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              // "OFF",
+                              reletedProductlist[index]['offtext'].toString(),
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15.sp,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15.h),
+                Row(
+                  children: [
+                    Container(
+                      width: 40.w,
+                      height: 20.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.r),
+                        color: textColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.star, color: Colors.white, size: 15.sp),
+                          Text(
+                            // "4.5",
+                            reletedProductlist[index]['rating'].toString(),
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10.sp,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 5.w),
+                    Text(
+                      // "(512 reviews)",
+                      reletedProductlist[index]['review'].toString(),
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 10.sp,
+                        color: Color.fromARGB(255, 102, 102, 102),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.h),
+                SizedBox(
+                  width: 159.w,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    // "5 in 1 Lipstick Red Edition & Nud",
+                    // myList[index]['title'].toString(),
+                    reletedProductlist[index]['title'].toString(),
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                      color: Color.fromARGB(255, 102, 102, 102),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                Text(
+                  // "\$450.00",
+                  // myList[index]['ammount'].toString(),
+                  reletedProductlist[index]['ammount'].toString(),
+                  style: GoogleFonts.inter(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: textColor,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
