@@ -33,7 +33,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final loginData = ref.watch(loginControllerProvider);
-
     return Scaffold(
       backgroundColor: defaultColor,
       appBar: AppBar(

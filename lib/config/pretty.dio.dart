@@ -1,17 +1,15 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shopping_app/login/login.page.dart';
 
 Dio createDio() {
   final dio = Dio();
-  // dio.interceptors.add(
-  //   InterceptorsWrapper(
-  //     onRequest: (options, handler) {
-  //       options.headers['Bearer Token'] =
-  //           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2luZGlhbWFsbC5saXZlIiwiaWF0IjoxNzQ3MTMyNTY3LCJuYmYiOjE3NDcxMzI1NjcsImV4cCI6MTc0NzczNzM2NywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMjMxIn19fQ.GIWEJM-YDgQvNc_mE2rpqq4pSuK7LFlir76y7XfA-IQ';
-  //       return handler.next(options);
-  //     },
-  //   ),
-  // );
+
   dio.interceptors.add(
     PrettyDioLogger(
       requestBody: true,
@@ -20,23 +18,57 @@ Dio createDio() {
       responseHeader: true,
     ),
   );
+  var box = Hive.box("data");
+  var token = box.get("token");
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   dio.interceptors.add(
     InterceptorsWrapper(
+      // onRequest: (options, handler) {
+      //   options.headers.addAll({
+      //     'Content-Type': 'application/json',
+      //     'Authorization': 'Bearer $token',
+      //     if (token != null) 'Authorization': 'Bearer $token',
+      //   });
+      //   handler.next(options);
+      // },
       onRequest: (options, handler) {
-        options.headers.addAll({
-          'Authorization':
-              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2luZGlhbWFsbC5saXZlIiwiaWF0IjoxNzQ3OTExNzcyLCJuYmYiOjE3NDc5MTE3NzIsImV4cCI6MTc0ODUxNjU3MiwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMjMxIn19fQ.iU0sLUEuO46nsNlGUhVqsMoiEIff4wjkidYzB7rkOi0',
-          'Content-Type': 'application/json',
-        });
+        options.headers['Content-Type'] = 'application/json';
+        if (token != null && token.isNotEmpty) {
+          options.headers['Authorization'] =
+              'Bearer $token'; // ✅ Add only if token exists
+        }
         handler.next(options);
       },
 
+      // onResponse: (response, handler) {
+      //   handler.next(response);
+      // },
       onResponse: (response, handler) {
         handler.next(response);
       },
-      onError: (error, handler) {
-        handler.next(error);
+
+      // onError: (DioException e, handler) {
+      //   //handler.next(error);
+      //   log('Unauthorized error: ${e.message}');
+      //   if (e.response?.statusCode == 403) {
+      //     navigatorKey.currentState?.push(
+      //       CupertinoPageRoute(builder: (context) => LoginPage()),
+      //     );
+      //     return;
+      //   } else {
+      //     handler.next(e);
+      //   }
+      // },
+      onError: (DioException e, handler) {
+        log('Unauthorized error: ${e.message}');
+        if (e.response?.statusCode == 403 || e.response?.statusCode == 401) {
+          navigatorKey.currentState?.push(
+            CupertinoPageRoute(builder: (context) => LoginPage()),
+          );
+        } else {
+          handler.next(e);
+        }
       },
     ),
   );
