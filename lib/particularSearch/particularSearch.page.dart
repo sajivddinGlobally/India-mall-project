@@ -4,7 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopping_app/Cart/model/addToCartBodyModel.dart';
+import 'package:shopping_app/Cart/service/cartController.dart';
+import 'package:shopping_app/Cart/service/cartService.dart';
+import 'package:shopping_app/config/pretty.dio.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/home/home.page.dart';
 import 'package:shopping_app/search/service/allProductController.dart';
@@ -553,20 +558,41 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                 ),
               ),
               SizedBox(width: 10.w),
-              Container(
-                width: 167.w,
-                height: 46.h,
-                decoration: BoxDecoration(
-                  color: textColor,
-                  borderRadius: BorderRadius.circular(30.r),
-                ),
-                child: Center(
-                  child: Text(
-                    "Add to cart",
-                    style: GoogleFonts.inter(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
+              GestureDetector(
+                onTap: () async {
+                  try {
+                    final res = await ref.read(
+                      addToCartProvider(
+                        AddToCartBodyModel(productId: 7911, quantity: 4),
+                      ).future,
+                    );
+
+                    Fluttertoast.showToast(
+                      msg: "${res.message}",
+                      backgroundColor: textColor,
+                    );
+                  } catch (e) {
+                    Fluttertoast.showToast(
+                      msg: "Error: ${e.toString()}",
+                      backgroundColor: textColor,
+                    );
+                  }
+                },
+                child: Container(
+                  width: 167.w,
+                  height: 46.h,
+                  decoration: BoxDecoration(
+                    color: textColor,
+                    borderRadius: BorderRadius.circular(30.r),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Add to cart",
+                      style: GoogleFonts.inter(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

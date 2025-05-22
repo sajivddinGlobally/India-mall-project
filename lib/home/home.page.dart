@@ -29,17 +29,18 @@ class _HomePageState extends ConsumerState<HomePage> {
     var box = Hive.box("data");
     var Id = box.get("id");
     final productProvider = ref.watch(allProductProvider);
-    if (productProvider.isLoading) {
+    final categoryProvider = ref.watch(categoryController);
+    if (productProvider.isLoading || categoryProvider.isLoading) {
       return Scaffold(
         body: Center(child: CircularProgressIndicator(color: textColor)),
       );
     }
-    if (productProvider.error != null) {
+    if (productProvider.error != null || categoryProvider.error != null) {
       return Scaffold(
         body: Center(child: Text("Error:${productProvider.error}")),
       );
     }
-    final categoryProvider = ref.watch(categoryController);
+    
     return Scaffold(
       backgroundColor: defaultColor,
       body:

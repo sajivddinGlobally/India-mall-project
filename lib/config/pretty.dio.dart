@@ -20,5 +20,25 @@ Dio createDio() {
       responseHeader: true,
     ),
   );
+
+  dio.interceptors.add(
+    InterceptorsWrapper(
+      onRequest: (options, handler) {
+        options.headers.addAll({
+          'Authorization':
+              'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2luZGlhbWFsbC5saXZlIiwiaWF0IjoxNzQ3OTExNzcyLCJuYmYiOjE3NDc5MTE3NzIsImV4cCI6MTc0ODUxNjU3MiwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMjMxIn19fQ.iU0sLUEuO46nsNlGUhVqsMoiEIff4wjkidYzB7rkOi0',
+          'Content-Type': 'application/json',
+        });
+        handler.next(options);
+      },
+
+      onResponse: (response, handler) {
+        handler.next(response);
+      },
+      onError: (error, handler) {
+        handler.next(error);
+      },
+    ),
+  );
   return dio;
 }

@@ -164,12 +164,13 @@ class _CartPageState extends ConsumerState<CartPage> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: cart.items.length,
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(
                         left: 20.w,
                         right: 20.w,
-                        top: 10.h,
+                        top: 20.h,
                       ),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -202,14 +203,17 @@ class _CartPageState extends ConsumerState<CartPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 10.h),
-                                Text(
-                                  // "Happy Birthday Decoration",
-                                  cart.items[index].name,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color.fromARGB(255, 16, 27, 1),
+                                SizedBox(
+                                  width: 240.w,
+                                  child: Text(
+                                    // "Happy Birthday Decoration",
+                                    cart.items[index].name,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color.fromARGB(255, 16, 27, 1),
+                                    ),
                                   ),
                                 ),
                                 Text(
@@ -220,13 +224,17 @@ class _CartPageState extends ConsumerState<CartPage> {
                                     color: Color.fromARGB(255, 102, 102, 102),
                                   ),
                                 ),
-                                Text(
-                                  // "\$140.00",
-                                  cart.items[index].price,
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: textColor,
+                                SizedBox(
+                                  width: 240.w,
+                                  child: Text(
+                                    // "\$140.00",
+                                    cart.items[index].price,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: textColor,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
