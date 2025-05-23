@@ -574,9 +574,6 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                             backgroundColor: textColor,
                           );
                         } catch (e) {
-                          setState(() {
-                            addCart = false;
-                          });
                           Fluttertoast.showToast(
                             msg: "Error: ${e.toString()}",
                             backgroundColor: textColor,
