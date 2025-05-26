@@ -14,3 +14,4 @@ final particularProviderController =
       return particuler.particularProduct(id);
     });
 final searchTextProvider = StateProvider<String>((ref) => '');
+  

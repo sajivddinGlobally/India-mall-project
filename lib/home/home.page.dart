@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:shopping_app/Cart/cart.page.dart';
 import 'package:shopping_app/account/account.page.dart';
 import 'package:shopping_app/category/category.page.dart';
+import 'package:shopping_app/category/service/categoryController.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/search/search.page.dart';
 import 'package:shopping_app/search/service/allProductController.dart';
@@ -37,7 +38,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         body: Center(child: Text("Error:${productProvider.error}")),
       );
     }
-
+    final categoryProvider = ref.watch(categoryController);
     return Scaffold(
       backgroundColor: defaultColor,
       body:
@@ -266,57 +267,96 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SizedBox(height: 20.h),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                      padding: EdgeInsets.only(left: 0.w, right: 0.w),
                       child: Row(
                         children: [
-                          Column(
-                            children: [
-                              Container(
-                                width: 60.w,
-                                height: 60.h,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromARGB(255, 244, 232, 243),
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.qr_code_outlined,
-                                    color: Color.fromARGB(255, 150, 28, 130),
+                          SizedBox(width: 10.w),
+                          // Column(
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     Container(
+                          //       width: 60.w,
+                          //       height: 60.h,
+                          //       decoration: BoxDecoration(
+                          //         shape: BoxShape.circle,
+                          //         color: Color.fromARGB(255, 244, 232, 243),
+                          //       ),
+                          //       child: Center(
+                          //         child: Icon(
+                          //           Icons.qr_code_outlined,
+                          //           color: Color.fromARGB(255, 150, 28, 130),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     SizedBox(height: 5.h),
+                          //     Text(
+                          //       textAlign: TextAlign.center,
+                          //       "All\n Categories",
+                          //       style: GoogleFonts.inter(
+                          //         fontWeight: FontWeight.w400,
+                          //         fontSize: 12.sp,
+                          //         color: Color.fromARGB(255, 102, 102, 102),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          categoryProvider.when(
+                            data: (categry) {
+                              return Expanded(
+                                child: SizedBox(
+                                  height: 115.h,
+                                  child: ListView.builder(
+                                    itemCount: categry.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: EdgeInsets.only(
+                                          left: 7.w,
+                                          right: 7.w,
+                                        ),
+                                        child: AllCategorBody(
+                                          image:
+                                              categry[index].imageUrl ??
+                                              "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
+                                          text: categry[index].name,
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: 5.h),
-                              Text(
-                                textAlign: TextAlign.center,
-                                "All\n Categories",
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.sp,
-                                  color: Color.fromARGB(255, 102, 102, 102),
+                              );
+                            },
+                            error: (Object error, StackTrace stackTrace) {
+                              return Center();
+                            },
+                            loading: () {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
                                 ),
-                              ),
-                            ],
+                              );
+                            },
                           ),
-                          Spacer(),
-                          AllCategorBody(
-                            image: "assets/home.png",
-                            text: 'Home &\nKitchen',
-                          ),
-                          Spacer(),
-                          AllCategorBody(
-                            image: "assets/beauty.png",
-                            text: 'Beauty &\nPersonal care',
-                          ),
-                          Spacer(),
-                          AllCategorBody(
-                            image: "assets/toy.png",
-                            text: 'Toy &\nGames',
-                          ),
-                          Spacer(),
-                          AllCategorBody(
-                            image: "assets/kids.png",
-                            text: 'Kids\nAccessories',
-                          ),
+                          // Spacer(),
+                          // AllCategorBody(
+                          //   image: "assets/home.png",
+                          //   text: 'Home &\nKitchen',
+                          // ),
+                          // Spacer(),
+                          // AllCategorBody(
+                          //   image: "assets/beauty.png",
+                          //   text: 'Beauty &\nPersonal care',
+                          // ),
+                          // Spacer(),
+                          // AllCategorBody(
+                          //   image: "assets/toy.png",
+                          //   text: 'Toy &\nGames',
+                          // ),
+                          // Spacer(),
+                          // AllCategorBody(
+                          //   image: "assets/kids.png",
+                          //   text: 'Kids\nAccessories',
+                          // ),
                         ],
                       ),
                     ),
@@ -619,7 +659,7 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
                     // "assets/pieces.png",
                     //gridList[index]['lipisticImage'].toString(),
                     product[index].imageUrl,
-                    height: 240.h,
+                    height: 235.h,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -909,16 +949,19 @@ class _AllCategorBodyState extends State<AllCategorBody> {
         Container(
           width: 60.w,
           height: 60.h,
-          decoration: BoxDecoration(shape: BoxShape.circle),
-          child: Image.asset(
-            // "assets/home.png",
-            widget.image,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: NetworkImage(widget.image),
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         Text(
           textAlign: TextAlign.center,
           // "Home &\nKitchen",
-          widget.text,
+          breakString(truncateWithEllipsis(widget.text, 15), 10),
+
           style: GoogleFonts.inter(
             fontWeight: FontWeight.w400,
             fontSize: 12.sp,
@@ -927,5 +970,22 @@ class _AllCategorBodyState extends State<AllCategorBody> {
         ),
       ],
     );
+  }
+}
+
+String breakString(String input, int maxLength) {
+  final buffer = StringBuffer();
+  for (int i = 0; i < input.length; i += maxLength) {
+    int end = (i + maxLength < input.length) ? i + maxLength : input.length;
+    buffer.writeln(input.substring(i, end));
+  }
+  return buffer.toString();
+}
+
+String truncateWithEllipsis(String input, int maxLength) {
+  if (input.length <= maxLength) {
+    return input;
+  } else {
+    return input.substring(0, maxLength) + '...';
   }
 }
