@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:retrofit/retrofit.dart' hide Headers;
+import 'package:shopping_app/category/model/addtoCart.model.dart';
 import 'package:shopping_app/category/model/categoryModel.dart';
 import 'package:shopping_app/category/model/productsbyCategoryId.dart';
 
@@ -13,4 +14,6 @@ abstract class CategoryService {
   Future<List<CategorModel>> getCategory();
   @GET('/custom-api/v1/products-by-category/?category_id={id}')
   Future<List<ProductByCategoryID>> getProductsByCategoryId(@Path('id') String id);
+  @POST('/indiamall/v1/cart')
+  Future<AddToCartResponse> addToCartBody(@Body() AddToCartBody body);
 }

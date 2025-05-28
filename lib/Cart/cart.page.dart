@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -204,7 +205,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                                 SizedBox(height: 10.h),
                                 Text(
                                   // "Happy Birthday Decoration",
-                                  cart.items[index].name,
+                                  truncateString(cart.items[index].name, 25),
                                   overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.inter(
                                     fontSize: 14.sp,
@@ -212,23 +213,8 @@ class _CartPageState extends ConsumerState<CartPage> {
                                     color: Color.fromARGB(255, 16, 27, 1),
                                   ),
                                 ),
-                                Text(
-                                  "Men’s collection",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 102, 102, 102),
-                                  ),
-                                ),
-                                Text(
-                                  // "\$140.00",
-                                  cart.items[index].price,
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: textColor,
-                                  ),
-                                ),
+
+                                Html(data: cart.items[index].price),
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width / 2,
                                   height: 40.h,
@@ -421,7 +407,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                   padding: EdgeInsets.only(left: 20.w, right: 20.h),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 160.h,
+                    height: 170.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.r),
                       border: Border.all(
@@ -449,60 +435,20 @@ class _CartPageState extends ConsumerState<CartPage> {
                                   color: Color.fromARGB(255, 102, 102, 102),
                                 ),
                               ),
-                              Text(
-                                "\$450.00",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
+                              // Text(
+                              //   "\$450.00",
+                              //   style: GoogleFonts.inter(
+                              //     fontSize: 14.sp,
+                              //     fontWeight: FontWeight.bold,
+                              //     color: Color.fromARGB(255, 102, 102, 102),
+                              //   ),
+                              // ),
+                              Html(data: cart.cartSubtotal),
                             ],
                           ),
+
                           SizedBox(height: 10.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Discount ",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
-                              Text(
-                                "-\$20.00",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Delivery Charges ",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
-                              Text(
-                                "\$20.00",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
-                            ],
-                          ),
+                          
                           SizedBox(height: 10.h),
                           Divider(
                             color: Color.fromARGB(25, 0, 0, 0),
@@ -520,14 +466,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                                   color: Color.fromARGB(255, 102, 102, 102),
                                 ),
                               ),
-                              Text(
-                                "\$450.00",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
+                              Html(data: cart.cartTotal)
                             ],
                           ),
                         ],
@@ -538,27 +477,8 @@ class _CartPageState extends ConsumerState<CartPage> {
                 SizedBox(height: 18.h),
                 Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1),
                 SizedBox(height: 17.h),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(
-                        MediaQuery.of(context).size.width,
-                        46.h,
-                      ),
-                      backgroundColor: textColor,
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      "Checkout",
-                      style: GoogleFonts.inter(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
+
+                  
                 SizedBox(height: 20.h),
               ],
             ),
@@ -570,4 +490,11 @@ class _CartPageState extends ConsumerState<CartPage> {
       ),
     );
   }
+}
+
+String truncateString(String input, int maxLength) {
+  if (input.length <= maxLength) {
+    return input;
+  }
+  return input.substring(0, maxLength);
 }

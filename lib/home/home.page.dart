@@ -11,6 +11,7 @@ import 'package:shopping_app/account/account.page.dart';
 import 'package:shopping_app/category/category.page.dart';
 import 'package:shopping_app/category/service/categoryController.dart';
 import 'package:shopping_app/constant/myColors.dart';
+import 'package:shopping_app/particularSearch/particularSearch.page.dart';
 import 'package:shopping_app/search/search.page.dart';
 import 'package:shopping_app/search/service/allProductController.dart';
 
@@ -650,85 +651,97 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
             childAspectRatio: 0.60,
           ),
           itemBuilder: (context, index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12.r),
-                  child: Image.network(
-                    // "assets/pieces.png",
-                    //gridList[index]['lipisticImage'].toString(),
-                    product[index].imageUrl,
-                    height: 235.h,
-                    fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder:
+                        (context) =>
+                            ParticularSearchPage(id: product[index].id),
                   ),
-                ),
-                SizedBox(height: 15.h),
-                Row(
-                  children: [
-                    Container(
-                      width: 40.w,
-                      height: 20.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.r),
-                        color: textColor,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.star, color: Colors.white, size: 15.sp),
-                          Text(
-                            // "4.5",
-                            gridList[index]['rating'].toString(),
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 10.sp,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                );
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12.r),
+                    child: Image.network(
+                      // "assets/pieces.png",
+                      //gridList[index]['lipisticImage'].toString(),
+                      product[index].imageUrl,
+                      height: 235.h,
+                      fit: BoxFit.cover,
                     ),
-                    SizedBox(width: 5.w),
-                    Text(
-                      // "(512 reviews)",
-                      gridList[index]['review'].toString(),
+                  ),
+                  SizedBox(height: 15.h),
+                  Row(
+                    children: [
+                      Container(
+                        width: 40.w,
+                        height: 20.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.r),
+                          color: textColor,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.star, color: Colors.white, size: 15.sp),
+                            Text(
+                              // "4.5",
+                              gridList[index]['rating'].toString(),
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 10.sp,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 5.w),
+                      Text(
+                        // "(512 reviews)",
+                        gridList[index]['review'].toString(),
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10.sp,
+                          color: Color.fromARGB(255, 102, 102, 102),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  SizedBox(
+                    width: 159.w,
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      // "5 in 1 Lipstick Red Edition & Nud",
+                      // gridList[index]['title'].toString(),
+                      product[index].name,
                       style: GoogleFonts.inter(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
                         color: Color.fromARGB(255, 102, 102, 102),
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                SizedBox(
-                  width: 159.w,
-                  child: Text(
-                    overflow: TextOverflow.ellipsis,
-                    // "5 in 1 Lipstick Red Edition & Nud",
-                    // gridList[index]['title'].toString(),
-                    product[index].name,
+                  ),
+                  SizedBox(height: 5.h),
+                  Text(
+                    // "\$450.00",
+                    //gridList[index]['ammount'].toString(),
+                    product[index].regularPrice,
                     style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.sp,
-                      color: Color.fromARGB(255, 102, 102, 102),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: textColor,
                     ),
                   ),
-                ),
-                SizedBox(height: 5.h),
-                Text(
-                  // "\$450.00",
-                  //gridList[index]['ammount'].toString(),
-                  product[index].regularPrice,
-                  style: GoogleFonts.inter(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    color: textColor,
-                  ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         );
@@ -792,134 +805,145 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
             itemCount: min(data.length, myList.length),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(left: 20.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12.r),
-                          child: Image.network(
-                            // "assets/lipistic.png"
-                            width: 166.w,
-                            height: 200.h,
-                            fit: BoxFit.cover,
-                            //myList[index]['lipisticImage'].toString(),
-                            data[index].imageUrl,
-                          ),
-                        ),
-                        widget.showDiscount == true
-                            ? Positioned(
-                              top: 19.h,
-                              child: Image.asset(
-                                // "assets/of.png",
-                                myList[index]['ofImage'].toString(),
-                              ),
-                            )
-                            : SizedBox(),
-                        widget.showDiscount
-                            ? Positioned(
-                              top: 20.h,
-                              left: 15.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    // "20%",
-                                    myList[index]['text'].toString(),
-                                    style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18.sp,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    // "OFF",
-                                    myList[index]['offtext'].toString(),
-                                    style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 15.sp,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                            : SizedBox(),
-                      ],
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder:
+                          (context) => ParticularSearchPage(id: data[index].id),
                     ),
-                    SizedBox(height: 15.h),
-                    Row(
-                      children: [
-                        Container(
-                          width: 40.w,
-                          height: 20.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.r),
-                            color: textColor,
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: Image.network(
+                              // "assets/lipistic.png"
+                              width: 166.w,
+                              height: 200.h,
+                              fit: BoxFit.cover,
+                              //myList[index]['lipisticImage'].toString(),
+                              data[index].imageUrl,
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.white,
-                                size: 15.sp,
-                              ),
-                              Text(
-                                // "4.5",
-                                myList[index]['rating'].toString(),
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 10.sp,
-                                  color: Colors.white,
+                          widget.showDiscount == true
+                              ? Positioned(
+                                top: 19.h,
+                                child: Image.asset(
+                                  // "assets/of.png",
+                                  myList[index]['ofImage'].toString(),
                                 ),
-                              ),
-                            ],
+                              )
+                              : SizedBox(),
+                          widget.showDiscount
+                              ? Positioned(
+                                top: 20.h,
+                                left: 15.w,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // "20%",
+                                      myList[index]['text'].toString(),
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      // "OFF",
+                                      myList[index]['offtext'].toString(),
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                              : SizedBox(),
+                        ],
+                      ),
+                      SizedBox(height: 15.h),
+                      Row(
+                        children: [
+                          Container(
+                            width: 40.w,
+                            height: 20.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30.r),
+                              color: textColor,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.white,
+                                  size: 15.sp,
+                                ),
+                                Text(
+                                  // "4.5",
+                                  myList[index]['rating'].toString(),
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 10.sp,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 5.w),
-                        Text(
-                          // "(512 reviews)",
-                          myList[index]['review'].toString(),
+                          SizedBox(width: 5.w),
+                          Text(
+                            // "(512 reviews)",
+                            myList[index]['review'].toString(),
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10.sp,
+                              color: Color.fromARGB(255, 102, 102, 102),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10.h),
+                      SizedBox(
+                        width: 159.w,
+                        child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          // "5 in 1 Lipstick Red Edition & Nud",
+                          // myList[index]['title'].toString(),
+                          data[index].name,
                           style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
                             color: Color.fromARGB(255, 102, 102, 102),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    SizedBox(
-                      width: 159.w,
-                      child: Text(
-                        overflow: TextOverflow.ellipsis,
-                        // "5 in 1 Lipstick Red Edition & Nud",
-                        // myList[index]['title'].toString(),
-                        data[index].name,
+                      ),
+                      SizedBox(height: 5.h),
+                      Text(
+                        // "\$450.00",
+                        // myList[index]['ammount'].toString(),
+                        data[index].regularPrice,
                         style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.sp,
-                          color: Color.fromARGB(255, 102, 102, 102),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: textColor,
                         ),
                       ),
-                    ),
-                    SizedBox(height: 5.h),
-                    Text(
-                      // "\$450.00",
-                      // myList[index]['ammount'].toString(),
-                      data[index].regularPrice,
-                      style: GoogleFonts.inter(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: textColor,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },

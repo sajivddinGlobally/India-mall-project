@@ -1,11 +1,13 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/category/service/categoryController.dart';
 import 'package:shopping_app/constant/myColors.dart';
+import 'package:shopping_app/particularSearch/particularSearch.page.dart';
 
 class CategoryPage extends ConsumerStatefulWidget {
   const CategoryPage({super.key});
@@ -222,100 +224,113 @@ class _CategoryPageState extends ConsumerState<CategoryPage> {
                                   childAspectRatio: 0.60,
                                 ),
                             itemBuilder: (context, index) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(12.r),
-                                    child: Image.network(
-                                      // "assets/pieces.png",
-                                      pro[index].image.toString(),
-
-                                      width: 144.w,
-                                      height: 160.h,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 40.w,
-                                        height: 20.h,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            30.r,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder:
+                                          (context) => ParticularSearchPage(
+                                            id: pro[index].id,
                                           ),
-                                          color: textColor,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.white,
-                                              size: 15.sp,
-                                            ),
-                                            Text(
-                                              "4.5",
-                                              style: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 10.sp,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                    ),
+                                  );
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      child: Image.network(
+                                        // "assets/pieces.png",
+                                        pro[index].image.toString(),
+
+                                        width: 144.w,
+                                        height: 160.h,
+                                        fit: BoxFit.cover,
                                       ),
-                                      SizedBox(width: 5.w),
-                                      Text(
-                                        "(512 reviews)",
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 40.w,
+                                          height: 20.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              30.r,
+                                            ),
+                                            color: textColor,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.star,
+                                                color: Colors.white,
+                                                size: 15.sp,
+                                              ),
+                                              Text(
+                                                "4.5",
+                                                style: GoogleFonts.inter(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 10.sp,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(width: 5.w),
+                                        Text(
+                                          "(512 reviews)",
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 10.sp,
+                                            color: Color.fromARGB(
+                                              255,
+                                              102,
+                                              102,
+                                              102,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    SizedBox(
+                                      width: 140.w,
+                                      child: Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        pro[index].name,
+
                                         style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 10.sp,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.sp,
                                           color: Color.fromARGB(
                                             255,
                                             102,
                                             102,
                                             102,
                                           ),
+                                          letterSpacing: -0.80,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  SizedBox(
-                                    width: 140.w,
-                                    child: Text(
-                                      overflow: TextOverflow.ellipsis,
-                                      pro[index].name,
-
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    Text(
+                                      "\$${pro[index].price}",
                                       style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12.sp,
-                                        color: Color.fromARGB(
-                                          255,
-                                          102,
-                                          102,
-                                          102,
-                                        ),
-                                        letterSpacing: -0.80,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: textColor,
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(height: 5.h),
-                                  Text(
-                                    "\$${pro[index].price}",
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             },
                           ),

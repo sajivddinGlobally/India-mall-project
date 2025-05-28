@@ -16,68 +16,7 @@ class SearchPage extends ConsumerStatefulWidget {
 }
 
 class _SearchPageState extends ConsumerState<SearchPage> {
-  List<Map<String, String>> searchList = [
-    {
-      "lipisticImage": "assets/lipistic.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "5 in 1 Lipstick Red Edition & Nud",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/makup.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "1 KG Butter Paper for Roti, Cake",
-      "ammount": "\$150.00",
-    },
-    {
-      "lipisticImage": "assets/makup1.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "37 Pc Birthday Decoration Items:Red Banner",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/makep2.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "37 Pc Birthday Decoration Items:Red Banner",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/makup3.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "37 Pc Birthday Decoration Items:Red Banner",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/makup4.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "37 Pc Birthday Decoration Items:Red Banner",
-      "ammount": "\$450.00",
-    },
-  ];
+  
   bool isSearching = false;
   final searchController = TextEditingController();
 
@@ -258,7 +197,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                         // product[index].imageUrl,
                                         filteredProducts[index].imageUrl,
                                         width: 195.w,
-                                        height: 240.h,
+                                        height: 238.h,
                                         fit: BoxFit.cover,
                                       ),
                                     ),

@@ -84,9 +84,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             children: [
               SizedBox(width: 20.w),
               GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
+                onTap: () {},
                 child: Container(
                   width: 44.w,
                   height: 44.h,
@@ -342,7 +340,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                               builder: (context) => HomePage(),
                             ),
                           );
-                         // ref.invalidate(allProductProvider);
+                          // ref.invalidate(allProductProvider);
                           Fluttertoast.showToast(
                             msg: "Logout Successful",
                             backgroundColor: textColor,
