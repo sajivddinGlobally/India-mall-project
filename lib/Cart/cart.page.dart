@@ -165,12 +165,13 @@ class _CartPageState extends ConsumerState<CartPage> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: cart.items.length,
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(
                         left: 20.w,
                         right: 20.w,
-                        top: 10.h,
+                        top: 20.h,
                       ),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -203,6 +204,7 @@ class _CartPageState extends ConsumerState<CartPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 10.h),
+<<<<<<< HEAD
                                 Text(
                                   // "Happy Birthday Decoration",
                                   truncateString(cart.items[index].name, 25),
@@ -215,6 +217,42 @@ class _CartPageState extends ConsumerState<CartPage> {
                                 ),
 
                                 Html(data: cart.items[index].price),
+=======
+                                SizedBox(
+                                  width: 240.w,
+                                  child: Text(
+                                    // "Happy Birthday Decoration",
+                                    cart.items[index].name,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color.fromARGB(255, 16, 27, 1),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Men’s collection",
+                                  style: GoogleFonts.inter(
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromARGB(255, 102, 102, 102),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 240.w,
+                                  child: Text(
+                                    // "\$140.00",
+                                    cart.items[index].price,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: textColor,
+                                    ),
+                                  ),
+                                ),
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width / 2,
                                   height: 40.h,

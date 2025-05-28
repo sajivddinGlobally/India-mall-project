@@ -47,26 +47,50 @@ class _CartService implements CartService {
   }
 
   @override
+<<<<<<< HEAD
   Future<HttpResponse<dynamic>> checkout(CheckoutModel body) async {
+=======
+  Future<AddToCartResModel> addToCart(AddToCartBodyModel body) async {
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(body.toJson());
+<<<<<<< HEAD
     final _options = _setStreamType<HttpResponse<dynamic>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             '/indiamall/v1/checkout',
+=======
+    final _options = _setStreamType<AddToCartResModel>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/indiamall/v1/cart',
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
+<<<<<<< HEAD
     final _result = await _dio.fetch(_options);
     final _value = _result.data;
     final httpResponse = HttpResponse(_value, _result);
     return httpResponse;
+=======
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late AddToCartResModel _value;
+    try {
+      _value = AddToCartResModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

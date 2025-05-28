@@ -29,17 +29,22 @@ class _HomePageState extends ConsumerState<HomePage> {
     var box = Hive.box("data");
     var Id = box.get("id");
     final productProvider = ref.watch(allProductProvider);
-    if (productProvider.isLoading) {
+    final categoryProvider = ref.watch(categoryController);
+    if (productProvider.isLoading || categoryProvider.isLoading) {
       return Scaffold(
         body: Center(child: CircularProgressIndicator(color: textColor)),
       );
     }
-    if (productProvider.error != null) {
+    if (productProvider.error != null || categoryProvider.error != null) {
       return Scaffold(
         body: Center(child: Text("Error:${productProvider.error}")),
       );
     }
+<<<<<<< HEAD
     final categoryProvider = ref.watch(categoryController);
+=======
+    
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
     return Scaffold(
       backgroundColor: defaultColor,
       body:
@@ -267,6 +272,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                     SizedBox(height: 20.h),
+<<<<<<< HEAD
                     Padding(
                       padding: EdgeInsets.only(left: 0.w, right: 0.w),
                       child: Row(
@@ -359,9 +365,107 @@ class _HomePageState extends ConsumerState<HomePage> {
                           //   text: 'Kids\nAccessories',
                           // ),
                         ],
+=======
+                    Container(
+                      height: 100.h,
+                      //color: Colors.amber,
+                      child: categoryProvider.when(
+                        data: (categorydata) {
+                          return ListView.builder(
+                            itemCount: categorydata.length,
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: 60.w,
+                                      height: 60.h,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Color.fromARGB(
+                                          255,
+                                          244,
+                                          232,
+                                          243,
+                                        ),
+                                      ),
+                                      child: ClipOval(
+                                        child: Image.network(
+                                          categorydata[index].imageUrl ??
+                                              "https://placehold.co/600x400/orange/white",
+                                          width: 60.w,
+                                          height: 60.h,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    SizedBox(
+                                      width: 75.w,
+                                      child: Text(
+                                        textAlign: TextAlign.center,
+                                        // "All\n Categories",
+                                        categorydata[index].name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.sp,
+                                          color: Color.fromARGB(
+                                            255,
+                                            102,
+                                            102,
+                                            102,
+                                          ),
+                                          letterSpacing: -0.70,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            // Row(
+                            //   children: [
+                            //     Spacer(),
+                            //     AllCategorBody(
+                            //       image: "assets/home.png",
+                            //       text: 'Home &\nKitchen',
+                            //     ),
+                            //     Spacer(),
+                            //     AllCategorBody(
+                            //       image: "assets/beauty.png",
+                            //       text: 'Beauty &\nPersonal care',
+                            //     ),
+                            //     Spacer(),
+                            //     AllCategorBody(
+                            //       image: "assets/toy.png",
+                            //       text: 'Toy &\nGames',
+                            //     ),
+                            //     Spacer(),
+                            //     AllCategorBody(
+                            //       image: "assets/kids.png",
+                            //       text: 'Kids\nAccessories',
+                            //     ),
+                            //   ],
+                            // ),
+                          );
+                        },
+                        error:
+                            (error, stackTrace) =>
+                                Center(child: Text(e.toString())),
+                        loading:
+                            () => Center(
+                              child: CircularProgressIndicator(
+                                color: textColor,
+                              ),
+                            ),
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
                       ),
                     ),
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 15.h),
                     Padding(
                       padding: EdgeInsets.only(left: 20.w, right: 20.w),
                       child: Row(
@@ -642,7 +746,6 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: min(product.length, gridList.length),
-
           // itemCount: product.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -651,6 +754,7 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
             childAspectRatio: 0.60,
           ),
           itemBuilder: (context, index) {
+<<<<<<< HEAD
             return GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -659,6 +763,31 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
                     builder:
                         (context) =>
                             ParticularSearchPage(id: product[index].id),
+=======
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder:
+                            (context) =>
+                                ParticularSearchPage(id: product[index].id),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12.r),
+                    child: Image.network(
+                      // "assets/pieces.png",
+                      //gridList[index]['lipisticImage'].toString(),
+                      product[index].imageUrl,
+                      height: 240.h,
+                      fit: BoxFit.cover,
+                    ),
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
                   ),
                 );
               },
@@ -805,6 +934,7 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
             itemCount: min(data.length, myList.length),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
+<<<<<<< HEAD
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -812,6 +942,77 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
                     CupertinoPageRoute(
                       builder:
                           (context) => ParticularSearchPage(id: data[index].id),
+=======
+              return Padding(
+                padding: EdgeInsets.only(left: 20.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder:
+                                (context) =>
+                                    ParticularSearchPage(id: data[index].id),
+                          ),
+                        );
+                      },
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12.r),
+                            child: Image.network(
+                              // "assets/lipistic.png"
+                              width: 166.w,
+                              height: 200.h,
+                              fit: BoxFit.cover,
+                              //myList[index]['lipisticImage'].toString(),
+                              data[index].imageUrl,
+                            ),
+                          ),
+                          widget.showDiscount == true
+                              ? Positioned(
+                                top: 19.h,
+                                child: Image.asset(
+                                  // "assets/of.png",
+                                  myList[index]['ofImage'].toString(),
+                                ),
+                              )
+                              : SizedBox(),
+                          widget.showDiscount
+                              ? Positioned(
+                                top: 20.h,
+                                left: 15.w,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // "20%",
+                                      myList[index]['text'].toString(),
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      // "OFF",
+                                      myList[index]['offtext'].toString(),
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 15.sp,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                              : SizedBox(),
+                        ],
+                      ),
+>>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
                     ),
                   );
                 },
