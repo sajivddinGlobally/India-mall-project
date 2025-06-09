@@ -24,12 +24,13 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   int tabBottom = 0;
+
   @override
   Widget build(BuildContext context) {
     var box = Hive.box("data");
-    var Id = box.get("id");
     final productProvider = ref.watch(allProductProvider);
     final categoryProvider = ref.watch(categoryController);
+
     if (productProvider.isLoading || categoryProvider.isLoading) {
       return Scaffold(
         body: Center(child: CircularProgressIndicator(color: textColor)),
@@ -37,520 +38,356 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
     if (productProvider.error != null || categoryProvider.error != null) {
       return Scaffold(
-        body: Center(child: Text("Error:${productProvider.error}")),
+        body: Center(
+          child: Text(
+            "Error: ${productProvider.error ?? categoryProvider.error}",
+            style: GoogleFonts.inter(fontSize: 16.sp, color: Colors.red),
+          ),
+        ),
       );
     }
-<<<<<<< HEAD
-    final categoryProvider = ref.watch(categoryController);
-=======
-    
->>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
+
     return Scaffold(
       backgroundColor: defaultColor,
-      body:
-          tabBottom == 0
-              ? SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 70.h),
-                    Row(
-                      children: [
-                        SizedBox(width: 20.w),
-                        Container(
-                          width: 44.w,
-                          height: 44.h,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromARGB(255, 217, 217, 217),
-                          ),
-                          child: Image.asset("assets/girl.png"),
+      body: tabBottom == 0
+          ? SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 70.h),
+                  Row(
+                    children: [
+                      SizedBox(width: 20.w),
+                      Container(
+                        width: 44.w,
+                        height: 44.h,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color.fromARGB(255, 217, 217, 217),
                         ),
-                        SizedBox(width: 8.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${box.get("name") ?? "Hello"}",
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16.sp,
-                                color: Color.fromARGB(255, 16, 27, 1),
-                              ),
-                            ),
-                            Text(
-                              "Jaipur, 302033",
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 11.sp,
-                                color: Color.fromARGB(255, 102, 102, 102),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Container(
-                          width: 44.w,
-                          height: 44.h,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            border: Border.all(
-                              color: Color.fromARGB(25, 0, 0, 0),
-                              width: 1.w,
-                            ),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Color.fromARGB(255, 16, 27, 1),
-                              size: 20.sp,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 20.w),
-                      ],
-                    ),
-                    SizedBox(height: 16.h),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      child: SizedBox(
-                        height: 50.h,
-                        child: TextField(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (context) => SearchPage(),
-                              ),
-                            );
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(
-                              left: 8.h,
-                              right: 8.w,
-                            ),
-                            prefixIcon: Icon(
-                              Icons.search,
-                              size: 20.sp,
-                              color: Color.fromARGB(255, 153, 153, 153),
-                            ),
-                            hintText: "Search Anything",
-                            hintStyle: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
+                        child: Image.asset("assets/girl.png"),
+                      ),
+                      SizedBox(width: 8.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            box.get("name")?.toString() ?? "Hello",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w400,
                               fontSize: 16.sp,
-                              color: Color.fromARGB(255, 153, 153, 153),
+                              color: const Color.fromARGB(255, 16, 27, 1),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.r),
-                              borderSide: BorderSide(
-                                color: Color.fromARGB(25, 0, 0, 0),
-                                width: 1.w,
-                              ),
+                          ),
+                          Text(
+                            "Jaipur, 302033",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 11.sp,
+                              color: const Color.fromARGB(255, 102, 102, 102),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.r),
-                              borderSide: BorderSide(
-                                color: Color.fromARGB(25, 0, 0, 0),
-                                width: 1.w,
-                              ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Container(
+                        width: 44.w,
+                        height: 44.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          border: Border.all(
+                            color: const Color.fromARGB(25, 0, 0, 0),
+                            width: 1.w,
+                          ),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: const Color.fromARGB(255, 16, 27, 1),
+                            size: 20.sp,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 20.w),
+                    ],
+                  ),
+                  SizedBox(height: 16.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: SizedBox(
+                      height: 50.h,
+                      child: TextField(
+                        readOnly: true,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => const SearchPage(),
+                            ),
+                          );
+                        },
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 8.h,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            size: 20.sp,
+                            color: const Color.fromARGB(255, 153, 153, 153),
+                          ),
+                          hintText: "Search Anything",
+                          hintStyle: GoogleFonts.inter(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.sp,
+                            color: const Color.fromARGB(255, 153, 153, 153),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.r),
+                            borderSide: BorderSide(
+                              color: const Color.fromARGB(25, 0, 0, 0),
+                              width: 1.w,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15.r),
+                            borderSide: BorderSide(
+                              color: const Color.fromARGB(25, 0, 0, 0),
+                              width: 1.w,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.h),
-                    Container(
-                      height: 77.h,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 244, 232, 243),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 35.w, right: 35.w),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.repeat,
-                              color: Color.fromARGB(255, 150, 28, 130),
-                            ),
-                            SizedBox(width: 6.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "7 days",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.sp,
-                                    color: Color.fromARGB(255, 150, 28, 130),
-                                  ),
-                                ),
-                                Text(
-                                  "Easy Return",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 102, 102, 102),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            VerticalDivider(
-                              color: Colors.grey,
-                              indent: 15,
-                              endIndent: 15,
-                              width: 1.w,
-                            ),
-                            Spacer(),
-                            Icon(
-                              Icons.repeat,
-                              color: Color.fromARGB(255, 150, 28, 130),
-                            ),
-                            SizedBox(width: 6.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "COD",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.sp,
-                                    color: Color.fromARGB(255, 150, 28, 130),
-                                  ),
-                                ),
-                                Text(
-                                  "Available",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 102, 102, 102),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            VerticalDivider(
-                              color: Colors.grey,
-                              indent: 15,
-                              endIndent: 15,
-                              width: 1.w,
-                            ),
-                            Spacer(),
-                            Icon(
-                              Icons.repeat,
-                              color: Color.fromARGB(255, 150, 28, 130),
-                            ),
-                            SizedBox(width: 6.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Lowest",
-                                  style: GoogleFonts.inter(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16.sp,
-                                    color: Color.fromARGB(255, 150, 28, 130),
-                                  ),
-                                ),
-                                Text(
-                                  "Price Item",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 102, 102, 102),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Container(
+                    height: 77.h,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 244, 232, 243),
                     ),
-                    SizedBox(height: 20.h),
-<<<<<<< HEAD
-                    Padding(
-                      padding: EdgeInsets.only(left: 0.w, right: 0.w),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 35.w),
                       child: Row(
                         children: [
-                          SizedBox(width: 10.w),
-                          // Column(
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   children: [
-                          //     Container(
-                          //       width: 60.w,
-                          //       height: 60.h,
-                          //       decoration: BoxDecoration(
-                          //         shape: BoxShape.circle,
-                          //         color: Color.fromARGB(255, 244, 232, 243),
-                          //       ),
-                          //       child: Center(
-                          //         child: Icon(
-                          //           Icons.qr_code_outlined,
-                          //           color: Color.fromARGB(255, 150, 28, 130),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     SizedBox(height: 5.h),
-                          //     Text(
-                          //       textAlign: TextAlign.center,
-                          //       "All\n Categories",
-                          //       style: GoogleFonts.inter(
-                          //         fontWeight: FontWeight.w400,
-                          //         fontSize: 12.sp,
-                          //         color: Color.fromARGB(255, 102, 102, 102),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                          categoryProvider.when(
-                            data: (categry) {
-                              return Expanded(
-                                child: SizedBox(
-                                  height: 115.h,
-                                  child: ListView.builder(
-                                    itemCount: categry.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.only(
-                                          left: 7.w,
-                                          right: 7.w,
-                                        ),
-                                        child: AllCategorBody(
-                                          image:
-                                              categry[index].imageUrl ??
-                                              "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
-                                          text: categry[index].name,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              );
-                            },
-                            error: (Object error, StackTrace stackTrace) {
-                              return Center();
-                            },
-                            loading: () {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              );
-                            },
+                          const Icon(
+                            Icons.repeat,
+                            color: Color.fromARGB(255, 150, 28, 130),
                           ),
-                          // Spacer(),
-                          // AllCategorBody(
-                          //   image: "assets/home.png",
-                          //   text: 'Home &\nKitchen',
-                          // ),
-                          // Spacer(),
-                          // AllCategorBody(
-                          //   image: "assets/beauty.png",
-                          //   text: 'Beauty &\nPersonal care',
-                          // ),
-                          // Spacer(),
-                          // AllCategorBody(
-                          //   image: "assets/toy.png",
-                          //   text: 'Toy &\nGames',
-                          // ),
-                          // Spacer(),
-                          // AllCategorBody(
-                          //   image: "assets/kids.png",
-                          //   text: 'Kids\nAccessories',
-                          // ),
+                          SizedBox(width: 6.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "7 days",
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                  color: const Color.fromARGB(255, 150, 28, 130),
+                                ),
+                              ),
+                              Text(
+                                "Easy Return",
+                                style: GoogleFonts.inter(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color.fromARGB(255, 102, 102, 102),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          VerticalDivider(
+                            color: Colors.grey,
+                            indent: 15,
+                            endIndent: 15,
+                            width: 1.w,
+                          ),
+                          const Spacer(),
+                          const Icon(
+                            Icons.repeat,
+                            color: Color.fromARGB(255, 150, 28, 130),
+                          ),
+                          SizedBox(width: 6.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "COD",
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                  color: const Color.fromARGB(255, 150, 28, 130),
+                                ),
+                              ),
+                              Text(
+                                "Available",
+                                style: GoogleFonts.inter(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color.fromARGB(255, 102, 102, 102),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          VerticalDivider(
+                            color: Colors.grey,
+                            indent: 15,
+                            endIndent: 15,
+                            width: 1.w,
+                          ),
+                          const Spacer(),
+                          const Icon(
+                            Icons.repeat,
+                            color: Color.fromARGB(255, 150, 28, 130),
+                          ),
+                          SizedBox(width: 6.w),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Lowest",
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                  color: const Color.fromARGB(255, 150, 28, 130),
+                                ),
+                              ),
+                              Text(
+                                "Price Item",
+                                style: GoogleFonts.inter(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color.fromARGB(255, 102, 102, 102),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
-=======
-                    Container(
-                      height: 100.h,
-                      //color: Colors.amber,
-                      child: categoryProvider.when(
-                        data: (categorydata) {
-                          return ListView.builder(
-                            itemCount: categorydata.length,
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(left: 10.w),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      width: 60.w,
-                                      height: 60.h,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Color.fromARGB(
-                                          255,
-                                          244,
-                                          232,
-                                          243,
-                                        ),
-                                      ),
-                                      child: ClipOval(
-                                        child: Image.network(
-                                          categorydata[index].imageUrl ??
-                                              "https://placehold.co/600x400/orange/white",
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    height: 100.h,
+                    child: categoryProvider.when(
+                      data: (categorydata) {
+                        return ListView.builder(
+                          itemCount: categorydata.length,
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 60.w,
+                                    height: 60.h,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromARGB(255, 244, 232, 243),
+                                    ),
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        categorydata[index].imageUrl ??
+                                            "assets/placeholder.png",
+                                        width: 60.w,
+                                        height: 60.h,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) =>
+                                            Image.asset(
+                                          "assets/placeholder.png",
                                           width: 60.w,
                                           height: 60.h,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 5.h),
-                                    SizedBox(
-                                      width: 75.w,
-                                      child: Text(
-                                        textAlign: TextAlign.center,
-                                        // "All\n Categories",
-                                        categorydata[index].name,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 12.sp,
-                                          color: Color.fromARGB(
-                                            255,
-                                            102,
-                                            102,
-                                            102,
-                                          ),
-                                          letterSpacing: -0.70,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            // Row(
-                            //   children: [
-                            //     Spacer(),
-                            //     AllCategorBody(
-                            //       image: "assets/home.png",
-                            //       text: 'Home &\nKitchen',
-                            //     ),
-                            //     Spacer(),
-                            //     AllCategorBody(
-                            //       image: "assets/beauty.png",
-                            //       text: 'Beauty &\nPersonal care',
-                            //     ),
-                            //     Spacer(),
-                            //     AllCategorBody(
-                            //       image: "assets/toy.png",
-                            //       text: 'Toy &\nGames',
-                            //     ),
-                            //     Spacer(),
-                            //     AllCategorBody(
-                            //       image: "assets/kids.png",
-                            //       text: 'Kids\nAccessories',
-                            //     ),
-                            //   ],
-                            // ),
-                          );
-                        },
-                        error:
-                            (error, stackTrace) =>
-                                Center(child: Text(e.toString())),
-                        loading:
-                            () => Center(
-                              child: CircularProgressIndicator(
-                                color: textColor,
-                              ),
-                            ),
->>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
-                      ),
-                    ),
-                    SizedBox(height: 15.h),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Deal of the day",
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20.sp,
-                                  color: Color.fromARGB(255, 16, 27, 1),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Deals ends in ",
-                                    style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.sp,
-                                      color: Color.fromARGB(255, 102, 102, 102),
-                                    ),
                                   ),
-                                  Text(
-                                    "- 04:45:00",
-                                    style: GoogleFonts.inter(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12.sp,
-                                      color: textColor,
+                                  SizedBox(height: 5.h),
+                                  SizedBox(
+                                    width: 75.w,
+                                    child: Text(
+                                      textAlign: TextAlign.center,
+                                      categorydata[index].name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12.sp,
+                                        color: const Color.fromARGB(255, 102, 102, 102),
+                                        letterSpacing: -0.70,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                          Spacer(),
-                          Container(
-                            width: 75.w,
-                            height: 36.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30.r),
-                              color: Color.fromARGB(25, 150, 28, 130),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "View All",
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 13.sp,
-                                  color: textColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                            );
+                          },
+                        );
+                      },
+                      error: (error, stackTrace) => Center(
+                        child: Text(
+                          error.toString(),
+                          style: GoogleFonts.inter(fontSize: 16.sp, color: Colors.red),
+                        ),
+                      ),
+                      loading: () => Center(
+                        child: CircularProgressIndicator(color: textColor),
                       ),
                     ),
-                    SizedBox(height: 15.h),
-                    DealsBody(showDiscount: true),
-                    SizedBox(height: 20.h),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      child: Image.asset("assets/shop.png"),
-                    ),
-                    SizedBox(height: 40.h),
-                    Row(
+                  ),
+                  SizedBox(height: 15.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Row(
                       children: [
-                        SizedBox(width: 20.w),
-                        Text(
-                          "Product for you",
-                          style: GoogleFonts.inter(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Color.fromARGB(255, 16, 27, 1),
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Deal of the day",
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 20.sp,
+                                color: const Color.fromARGB(255, 16, 27, 1),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Deals ends in ",
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.sp,
+                                    color: const Color.fromARGB(255, 102, 102, 102),
+                                  ),
+                                ),
+                                Text(
+                                  "- 04:45:00",
+                                  style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.sp,
+                                    color: textColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Container(
                           width: 75.w,
                           height: 36.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30.r),
-                            color: Color.fromARGB(25, 150, 28, 130),
+                            color: const Color.fromARGB(25, 150, 28, 130),
                           ),
                           child: Center(
                             child: Text(
@@ -563,74 +400,115 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20.w),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      child: GridVeiwBody(),
-                    ),
-                    SizedBox(height: 30.h),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 395.h,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 244, 231, 243),
+                  ),
+                  SizedBox(height: 15.h),
+                  DealsBody(showDiscount: true),
+                  SizedBox(height: 20.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Image.asset("assets/shop.png"),
+                  ),
+                  SizedBox(height: 40.h),
+                  Row(
+                    children: [
+                      SizedBox(width: 20.w),
+                      Text(
+                        "Product for you",
+                        style: GoogleFonts.inter(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromARGB(255, 16, 27, 1),
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 25.w,
-                              right: 20.w,
-                              top: 26.h,
+                      const Spacer(),
+                      Container(
+                        width: 75.w,
+                        height: 36.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.r),
+                          color: const Color.fromARGB(25, 150, 28, 130),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "View All",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13.sp,
+                              color: textColor,
                             ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Low Price Store",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 16, 27, 1),
-                                  ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 20.w),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: GridViewBody(),
+                  ),
+                  SizedBox(height: 30.h),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 395.h,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 244, 231, 243),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 25.w,
+                            right: 20.w,
+                            top: 26.h,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Low Price Store",
+                                style: GoogleFonts.inter(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color.fromARGB(255, 16, 27, 1),
                                 ),
-                                Spacer(),
-                                Container(
-                                  width: 75.w,
-                                  height: 36.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    color: Color.fromARGB(25, 150, 28, 130),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "View All",
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 13.sp,
-                                        color: textColor,
-                                      ),
+                              ),
+                              const Spacer(),
+                              Container(
+                                width: 75.w,
+                                height: 36.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.r),
+                                  color: const Color.fromARGB(25, 150, 28, 130),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "View All",
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13.sp,
+                                      color: textColor,
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 20.h),
-                          DealsBody(showDiscount: false),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 20.h),
+                        DealsBody(showDiscount: false),
+                      ],
                     ),
-                  ],
-                ),
-              )
-              : tabBottom == 1
-              ? CategoryPage()
+                  ),
+                ],
+              ),
+            )
+          : tabBottom == 1
+              ? const CategoryPage()
               : tabBottom == 2
-              ? CartPage()
-              : AccountPage(),
+                  ? const CartPage()
+                  : const AccountPage(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
           setState(() {
@@ -651,7 +529,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           color: Colors.grey,
         ),
         type: BottomNavigationBarType.fixed,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             label: "Home",
@@ -660,11 +538,10 @@ class _HomePageState extends ConsumerState<HomePage> {
             icon: Icon(Icons.layers_outlined),
             label: 'Category',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.card_travel), label: 'Cart'),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.help_outline),
-          //   label: 'Help',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.card_travel),
+            label: 'Cart',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.perm_identity_sharp),
             label: 'Account',
@@ -675,78 +552,23 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 }
 
-class GridVeiwBody extends ConsumerStatefulWidget {
-  const GridVeiwBody({super.key});
+class GridViewBody extends ConsumerStatefulWidget {
+  const GridViewBody({super.key});
 
   @override
-  ConsumerState<GridVeiwBody> createState() => _GridVeiwBodyState();
+  ConsumerState<GridViewBody> createState() => _GridViewBodyState();
 }
 
-class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
-  List<Map<String, String>> gridList = [
-    {
-      "lipisticImage": "assets/pieces.png",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "53 Pieces Cabana Tent Birthday Deco",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/lip.png",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "53 Pieces Cabana Tent Birthday Deco",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/tic.png",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "53 Pieces Cabana Tent Birthday Deco",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/lipistic.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "53 Pieces Cabana Tent Birthday Deco",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/butter.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "1 KG Butter Paper for Roti, Cake",
-      "ammount": "\$150.00",
-    },
-    {
-      "lipisticImage": "assets/ganesh.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "37 Pc Birthday Decoration Items:Red Banner",
-      "ammount": "\$450.00",
-    },
-  ];
-
+class _GridViewBodyState extends ConsumerState<GridViewBody> {
   @override
   Widget build(BuildContext context) {
     final productProvider = ref.watch(allProductProvider);
     return productProvider.when(
       data: (product) {
         return GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: min(product.length, gridList.length),
-          // itemCount: product.length,
+          itemCount: product.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10.w,
@@ -754,54 +576,29 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
             childAspectRatio: 0.60,
           ),
           itemBuilder: (context, index) {
-<<<<<<< HEAD
             return GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
                   CupertinoPageRoute(
-                    builder:
-                        (context) =>
-                            ParticularSearchPage(id: product[index].id),
-=======
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder:
-                            (context) =>
-                                ParticularSearchPage(id: product[index].id),
-                      ),
-                    );
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: Image.network(
-                      // "assets/pieces.png",
-                      //gridList[index]['lipisticImage'].toString(),
-                      product[index].imageUrl,
-                      height: 240.h,
-                      fit: BoxFit.cover,
-                    ),
->>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
+                    builder: (context) => ParticularSearchPage(id: product[index].id),
                   ),
                 );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+                children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12.r),
                     child: Image.network(
-                      // "assets/pieces.png",
-                      //gridList[index]['lipisticImage'].toString(),
                       product[index].imageUrl,
                       height: 235.h,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                        "assets/placeholder.png",
+                        height: 235.h,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(height: 15.h),
@@ -820,8 +617,7 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
                           children: [
                             Icon(Icons.star, color: Colors.white, size: 15.sp),
                             Text(
-                              // "4.5",
-                              gridList[index]['rating'].toString(),
+                               "4.5",
                               style: GoogleFonts.inter(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 10.sp,
@@ -833,12 +629,11 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
                       ),
                       SizedBox(width: 5.w),
                       Text(
-                        // "(512 reviews)",
-                        gridList[index]['review'].toString(),
+                        "(12 reviews)",
                         style: GoogleFonts.inter(
                           fontWeight: FontWeight.w500,
                           fontSize: 10.sp,
-                          color: Color.fromARGB(255, 102, 102, 102),
+                          color: const Color.fromARGB(255, 102, 102, 102),
                         ),
                       ),
                     ],
@@ -847,21 +642,17 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
                   SizedBox(
                     width: 159.w,
                     child: Text(
-                      overflow: TextOverflow.ellipsis,
-                      // "5 in 1 Lipstick Red Edition & Nud",
-                      // gridList[index]['title'].toString(),
                       product[index].name,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
-                        color: Color.fromARGB(255, 102, 102, 102),
+                        color: const Color.fromARGB(255, 102, 102, 102),
                       ),
                     ),
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    // "\$450.00",
-                    //gridList[index]['ammount'].toString(),
                     product[index].regularPrice,
                     style: GoogleFonts.inter(
                       fontSize: 14.sp,
@@ -875,8 +666,13 @@ class _GridVeiwBodyState extends ConsumerState<GridVeiwBody> {
           },
         );
       },
-      error: (error, stackTrace) => Center(child: Text(e.toString())),
-      loading: () => Center(child: CircularProgressIndicator()),
+      error: (error, stackTrace) => Center(
+        child: Text(
+          error.toString(),
+          style: GoogleFonts.inter(fontSize: 16.sp, color: Colors.red),
+        ),
+      ),
+      loading: () => Center(child: CircularProgressIndicator(color: textColor)),
     );
   }
 }
@@ -890,134 +686,28 @@ class DealsBody extends ConsumerStatefulWidget {
 }
 
 class _DealsBodyState extends ConsumerState<DealsBody> {
-  List<Map<String, String>> myList = [
-    {
-      "lipisticImage": "assets/lipistic.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "5 in 1 Lipstick Red Edition & Nud",
-      "ammount": "\$450.00",
-    },
-    {
-      "lipisticImage": "assets/butter.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "1 KG Butter Paper for Roti, Cake",
-      "ammount": "\$150.00",
-    },
-    {
-      "lipisticImage": "assets/birthday.png",
-      "ofImage": "assets/of.png",
-      "text": "20%",
-      "offtext": "OFF",
-      "rating": "4.5",
-      "review": "(512 reviews)",
-      "title": "37 Pc Birthday Decoration Items:Red Banner",
-      "ammount": "\$450.00",
-    },
-  ];
   @override
   Widget build(BuildContext context) {
     final productProvider = ref.watch(allProductProvider);
     return productProvider.when(
       data: (data) {
-        return Container(
+        return SizedBox(
           height: 310.h,
-          // color: Colors.yellow,
           child: ListView.builder(
-            itemCount: min(data.length, myList.length),
+            itemCount: data.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-<<<<<<< HEAD
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder:
-                          (context) => ParticularSearchPage(id: data[index].id),
-=======
               return Padding(
                 padding: EdgeInsets.only(left: 20.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder:
-                                (context) =>
-                                    ParticularSearchPage(id: data[index].id),
-                          ),
-                        );
-                      },
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12.r),
-                            child: Image.network(
-                              // "assets/lipistic.png"
-                              width: 166.w,
-                              height: 200.h,
-                              fit: BoxFit.cover,
-                              //myList[index]['lipisticImage'].toString(),
-                              data[index].imageUrl,
-                            ),
-                          ),
-                          widget.showDiscount == true
-                              ? Positioned(
-                                top: 19.h,
-                                child: Image.asset(
-                                  // "assets/of.png",
-                                  myList[index]['ofImage'].toString(),
-                                ),
-                              )
-                              : SizedBox(),
-                          widget.showDiscount
-                              ? Positioned(
-                                top: 20.h,
-                                left: 15.w,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      // "20%",
-                                      myList[index]['text'].toString(),
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18.sp,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Text(
-                                      // "OFF",
-                                      myList[index]['offtext'].toString(),
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 15.sp,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                              : SizedBox(),
-                        ],
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => ParticularSearchPage(id: data[index].id),
                       ),
->>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w),
+                    );
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1026,52 +716,53 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12.r),
                             child: Image.network(
-                              // "assets/lipistic.png"
+                              data[index].imageUrl,
                               width: 166.w,
                               height: 200.h,
                               fit: BoxFit.cover,
-                              //myList[index]['lipisticImage'].toString(),
-                              data[index].imageUrl,
+                              errorBuilder: (context, error, stackTrace) => Image.asset(
+                                "assets/placeholder.png",
+                                width: 166.w,
+                                height: 200.h,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                          widget.showDiscount == true
-                              ? Positioned(
-                                top: 19.h,
-                                child: Image.asset(
-                                  // "assets/of.png",
-                                  myList[index]['ofImage'].toString(),
-                                ),
-                              )
-                              : SizedBox(),
-                          widget.showDiscount
-                              ? Positioned(
-                                top: 20.h,
-                                left: 15.w,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      // "20%",
-                                      myList[index]['text'].toString(),
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18.sp,
-                                        color: Colors.white,
-                                      ),
+                          if (widget.showDiscount && data[index].regularPrice != null)
+                            Positioned(
+                              top: 19.h,
+                              child: Image.asset(
+                                "assets/of.png",
+                                width: 50.w,
+                                height: 50.h,
+                              ),
+                            ),
+                          if (widget.showDiscount && data[index].regularPrice != null)
+                            Positioned(
+                              top: 20.h,
+                              left: 15.w,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${data[index].regularPrice}%",
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.sp,
+                                      color: Colors.white,
                                     ),
-                                    Text(
-                                      // "OFF",
-                                      myList[index]['offtext'].toString(),
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 15.sp,
-                                        color: Colors.white,
-                                      ),
+                                  ),
+                                  Text(
+                                    "OFF",
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15.sp,
+                                      color: Colors.white,
                                     ),
-                                  ],
-                                ),
-                              )
-                              : SizedBox(),
+                                  ),
+                                ],
+                              ),
+                            ),
                         ],
                       ),
                       SizedBox(height: 15.h),
@@ -1088,14 +779,9 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.white,
-                                  size: 15.sp,
-                                ),
+                                Icon(Icons.star, color: Colors.white, size: 15.sp),
                                 Text(
-                                  // "4.5",
-                                  myList[index]['rating'].toString(),
+                                   "4.5",
                                   style: GoogleFonts.inter(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 10.sp,
@@ -1107,12 +793,11 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
                           ),
                           SizedBox(width: 5.w),
                           Text(
-                            // "(512 reviews)",
-                            myList[index]['review'].toString(),
+                             "(15 reviews)",
                             style: GoogleFonts.inter(
                               fontWeight: FontWeight.w500,
                               fontSize: 10.sp,
-                              color: Color.fromARGB(255, 102, 102, 102),
+                              color: const Color.fromARGB(255, 102, 102, 102),
                             ),
                           ),
                         ],
@@ -1121,21 +806,17 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
                       SizedBox(
                         width: 159.w,
                         child: Text(
-                          overflow: TextOverflow.ellipsis,
-                          // "5 in 1 Lipstick Red Edition & Nud",
-                          // myList[index]['title'].toString(),
                           data[index].name,
+                          overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.inter(
                             fontWeight: FontWeight.w400,
                             fontSize: 12.sp,
-                            color: Color.fromARGB(255, 102, 102, 102),
+                            color: const Color.fromARGB(255, 102, 102, 102),
                           ),
                         ),
                       ),
                       SizedBox(height: 5.h),
                       Text(
-                        // "\$450.00",
-                        // myList[index]['ammount'].toString(),
                         data[index].regularPrice,
                         style: GoogleFonts.inter(
                           fontSize: 14.sp,
@@ -1151,66 +832,13 @@ class _DealsBodyState extends ConsumerState<DealsBody> {
           ),
         );
       },
-      error: (error, stackTrace) => Center(child: Text(e.toString())),
-      loading: () => Center(child: CircularProgressIndicator()),
-    );
-  }
-}
-
-class AllCategorBody extends StatefulWidget {
-  final String image;
-  final String text;
-  const AllCategorBody({super.key, required this.image, required this.text});
-
-  @override
-  State<AllCategorBody> createState() => _AllCategorBodyState();
-}
-
-class _AllCategorBodyState extends State<AllCategorBody> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 60.w,
-          height: 60.h,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: NetworkImage(widget.image),
-              fit: BoxFit.fill,
-            ),
-          ),
+      error: (error, stackTrace) => Center(
+        child: Text(
+          error.toString(),
+          style: GoogleFonts.inter(fontSize: 16.sp, color: Colors.red),
         ),
-        Text(
-          textAlign: TextAlign.center,
-          // "Home &\nKitchen",
-          breakString(truncateWithEllipsis(widget.text, 15), 10),
-
-          style: GoogleFonts.inter(
-            fontWeight: FontWeight.w400,
-            fontSize: 12.sp,
-            color: Color.fromARGB(255, 102, 102, 102),
-          ),
-        ),
-      ],
+      ),
+      loading: () => Center(child: CircularProgressIndicator(color: textColor)),
     );
-  }
-}
-
-String breakString(String input, int maxLength) {
-  final buffer = StringBuffer();
-  for (int i = 0; i < input.length; i += maxLength) {
-    int end = (i + maxLength < input.length) ? i + maxLength : input.length;
-    buffer.writeln(input.substring(i, end));
-  }
-  return buffer.toString();
-}
-
-String truncateWithEllipsis(String input, int maxLength) {
-  if (input.length <= maxLength) {
-    return input;
-  } else {
-    return input.substring(0, maxLength) + '...';
   }
 }

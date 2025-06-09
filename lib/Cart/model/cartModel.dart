@@ -10,72 +10,60 @@ String cartModelToJson(CartModel data) => json.encode(data.toJson());
 
 class CartModel {
     String status;
-    List<Item> items;
-    String cartTotal;
-    String cartSubtotal;
+    List<Cart> cart;
+    dynamic cartKey;
+    int cartTotal;
 
     CartModel({
         required this.status,
-        required this.items,
+        required this.cart,
+        required this.cartKey,
         required this.cartTotal,
-        required this.cartSubtotal,
     });
 
     factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
         status: json["status"],
-        items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
+        cart: List<Cart>.from(json["cart"].map((x) => Cart.fromJson(x))),
+        cartKey: json["cart_key"],
         cartTotal: json["cart_total"],
-        cartSubtotal: json["cart_subtotal"],
     );
 
     Map<String, dynamic> toJson() => {
         "status": status,
-        "items": List<dynamic>.from(items.map((x) => x.toJson())),
+        "cart": List<dynamic>.from(cart.map((x) => x.toJson())),
+        "cart_key": cartKey,
         "cart_total": cartTotal,
-        "cart_subtotal": cartSubtotal,
     };
 }
 
-class Item {
-    String cartItemKey;
+class Cart {
     int productId;
     String name;
-    String price;
     int quantity;
-    String subtotal;
-    String total;
-    String image;
+    String price;
+    int subtotal;
 
-    Item({
-        required this.cartItemKey,
+    Cart({
         required this.productId,
         required this.name,
-        required this.price,
         required this.quantity,
+        required this.price,
         required this.subtotal,
-        required this.total,
-        required this.image,
     });
 
-    factory Item.fromJson(Map<String, dynamic> json) => Item(
-        cartItemKey: json["cart_item_key"],
+    factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         productId: json["product_id"],
         name: json["name"],
-        price: json["price"],
         quantity: json["quantity"],
+        price: json["price"],
         subtotal: json["subtotal"],
-        total: json["total"],
-        image: json["image"],
     );
 
     Map<String, dynamic> toJson() => {
-        "cart_item_key": cartItemKey,
         "product_id": productId,
         "name": name,
-        "price": price,
         "quantity": quantity,
+        "price": price,
         "subtotal": subtotal,
-        "total": total,
-        "image": image,
     };
 }

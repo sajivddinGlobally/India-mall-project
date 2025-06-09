@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -6,7 +8,14 @@ class AppInitializer {
     // Initialize Hive
     WidgetsFlutterBinding.ensureInitialized();
     await Hive.initFlutter();
-    await Hive.openBox("data");
+    try {
+    await Hive.initFlutter();
+    if (!Hive.isBoxOpen('data')) {
+      await Hive.openBox('data');
+    }
+  } catch (e) {
+    log("Hive initialization failed: $e");
+  }
   }
 
   // Optional: Access to commonly used boxes/services

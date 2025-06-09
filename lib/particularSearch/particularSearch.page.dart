@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -6,11 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:shopping_app/category/model/addtoCart.model.dart';
 import 'package:shopping_app/category/service/categoryService.dart';
 import 'package:shopping_app/config/pretty.dio.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/home/home.page.dart';
+import 'package:shopping_app/login/login.page.dart';
 import 'package:shopping_app/search/service/allProductController.dart';
 
 class ParticularSearchPage extends ConsumerStatefulWidget {
@@ -26,7 +27,6 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
   int tab = 0;
   int count = 1;
 
-  
   bool isFavorite = false;
 
   void increment() {
@@ -477,40 +477,55 @@ class _ParticularSearchPageState extends ConsumerState<ParticularSearchPage> {
                     SizedBox(width: 10.w),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            btnLoder = true;
-                          });
-                          
-                          try {
-                            final service = CategoryService(createDio());
-                            final response = service.addToCartBody(
-                              AddToCartBody(
-                                productId: particular.id,
-                                quantity: count,
-                              ),
-                            );
+                        onTap: () async {
+                          var box = await Hive.box("data");
+                          final token = box.get("token");
+                          if (token == null) {
                             Fluttertoast.showToast(
-                              msg: "Product added to cart",
-                              backgroundColor: Colors.deepPurple,
-                              textColor: Colors.white,
-                            );
-                            setState(() {
-                              btnLoder = false;
-                            });
-                          } catch (e) {
-                            setState(() {
-                              btnLoder = false;
-                            });
-                            Fluttertoast.showToast(
-                              msg: "Faild to add cart",
+                              msg: "You have to do login first",
                               backgroundColor: Colors.red,
                               textColor: Colors.white,
                             );
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
+                            );
+                          } else {
+                            setState(() {
+                              btnLoder = true;
+                            });
+
+                            try {
+                              final service = CategoryService(createDio());
+                              final response = service.addToCartBody(
+                                AddToCartBody(
+                                  productId: particular.id,
+                                  quantity: count,
+                                ),
+                              );
+                              Fluttertoast.showToast(
+                                msg: "Product added to cart",
+                                backgroundColor: Colors.deepPurple,
+                                textColor: Colors.white,
+                              );
+                              setState(() {
+                                btnLoder = false;
+                              });
+                            } catch (e) {
+                              setState(() {
+                                btnLoder = false;
+                              });
+                              Fluttertoast.showToast(
+                                msg: "Faild to add cart",
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                              );
+                            }
                           }
                         },
                         child: Container(
-                                      
                           height: 46.h,
                           decoration: BoxDecoration(
                             color: textColor,

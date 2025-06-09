@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopping_app/Cart/model/addToCartBodyModel.dart';
@@ -8,6 +10,7 @@ import 'package:shopping_app/config/pretty.dio.dart';
 
 final cartProvider = FutureProvider<CartModel>((ref) async {
   final cartservice = CartService(await createDio());
+  log("hrllo");
   return cartservice.cart();
 });
 

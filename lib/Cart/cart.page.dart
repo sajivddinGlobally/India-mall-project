@@ -4,9 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shopping_app/Cart/model/cartquantityUpdate,model.dart';
+import 'package:shopping_app/Cart/model/checkout.model.dart';
 import 'package:shopping_app/Cart/service/cartController.dart';
+import 'package:shopping_app/Cart/service/cartService.dart';
+import 'package:shopping_app/config/pretty.dio.dart';
 import 'package:shopping_app/constant/myColors.dart';
+import 'package:shopping_app/screen/address.form.page.dart';
+import 'package:shopping_app/screen/provider/address.provider.dart';
 
 class CartPage extends ConsumerStatefulWidget {
   const CartPage({super.key});
@@ -16,30 +23,16 @@ class CartPage extends ConsumerStatefulWidget {
 }
 
 class _CartPageState extends ConsumerState<CartPage> {
-  int count = 1;
-  void increment() {
-    setState(() {
-      count++;
-    });
-  }
-
-  void decrement() {
-    if (count > 1) {
-      setState(() {
-        count--;
-      });
-    }
-  }
-
   List<Map<String, String>> decoreList = [
     {"imageUrl": "assets/detailslip.png"},
     {"imageUrl": "assets/makup1.png"},
     {"imageUrl": "assets/dec.png"},
   ];
-
+  bool btnLoder = false;
   @override
   Widget build(BuildContext context) {
     final cartData = ref.watch(cartProvider);
+
     return Scaffold(
       backgroundColor: defaultColor,
       body: cartData.when(
@@ -164,198 +157,14 @@ class _CartPageState extends ConsumerState<CartPage> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: cart.items.length,
+                  itemCount: cart.cart.length,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        left: 20.w,
-                        right: 20.w,
-                        top: 20.h,
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 120.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color.fromARGB(25, 0, 0, 0),
-                            width: 1.w,
-                          ),
-                          borderRadius: BorderRadius.circular(5.r),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(4),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5.r),
-                                child: Image.network(
-                                  width: 130.w,
-                                  height: 108.h,
-                                  fit: BoxFit.cover,
-                                  // "assets/detailslip.png",
-                                  //decoreList[index]['imageUrl'].toString(),
-                                  cart.items[index].image,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 10.h),
-<<<<<<< HEAD
-                                Text(
-                                  // "Happy Birthday Decoration",
-                                  truncateString(cart.items[index].name, 25),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.inter(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color.fromARGB(255, 16, 27, 1),
-                                  ),
-                                ),
-
-                                Html(data: cart.items[index].price),
-=======
-                                SizedBox(
-                                  width: 240.w,
-                                  child: Text(
-                                    // "Happy Birthday Decoration",
-                                    cart.items[index].name,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromARGB(255, 16, 27, 1),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "Men’s collection",
-                                  style: GoogleFonts.inter(
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 102, 102, 102),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 240.w,
-                                  child: Text(
-                                    // "\$140.00",
-                                    cart.items[index].price,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                ),
->>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 2,
-                                  height: 40.h,
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(top: 6.h),
-                                        width: 100.w,
-                                        height: 35.h,
-                                        decoration: BoxDecoration(
-                                          color: Color.fromARGB(
-                                            25,
-                                            150,
-                                            28,
-                                            130,
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            5.r,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(width: 10.w),
-                                            GestureDetector(
-                                              onTap: () {
-                                                decrement();
-                                              },
-                                              child: Text(
-                                                "-",
-                                                style: GoogleFonts.inter(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: textColor,
-                                                ),
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            Text(
-                                              "${count.toString()}",
-                                              style: GoogleFonts.inter(
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: textColor,
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            GestureDetector(
-                                              onTap: () {
-                                                increment();
-                                              },
-                                              child: Text(
-                                                "+",
-                                                style: GoogleFonts.inter(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: textColor,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10.w),
-                                          ],
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          margin: EdgeInsets.only(top: 6.h),
-                                          width: 36.w,
-                                          height: 28.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                              5.r,
-                                            ),
-                                            color: Color.fromARGB(
-                                              25,
-                                              255,
-                                              0,
-                                              0,
-                                            ),
-                                          ),
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.delete,
-                                              color: Color.fromARGB(
-                                                255,
-                                                255,
-                                                0,
-                                                0,
-                                              ),
-                                              size: 20.sp,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                    return CaartTabs(
+                      product_id: cart.cart[index].productId.toString(),
+                      name: cart.cart[index].name,
+                      regularPrice: cart.cart[index].subtotal.toString(),
+                      totalprice: cart.cart[index].price,
                     );
                   },
                 ),
@@ -429,94 +238,157 @@ class _CartPageState extends ConsumerState<CartPage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 30.h),
-                  child: Text(
-                    "Payment Info",
-                    style: GoogleFonts.inter(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w400,
-                      color: Color.fromARGB(255, 16, 27, 1),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.h),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 170.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(
-                        color: Color.fromARGB(25, 16, 27, 1),
-                        width: 1.w,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: 15.w,
-                        right: 15.w,
-                        top: 15.h,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Subtotal",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
-                              // Text(
-                              //   "\$450.00",
-                              //   style: GoogleFonts.inter(
-                              //     fontSize: 14.sp,
-                              //     fontWeight: FontWeight.bold,
-                              //     color: Color.fromARGB(255, 102, 102, 102),
-                              //   ),
-                              // ),
-                              Html(data: cart.cartSubtotal),
-                            ],
-                          ),
+                // Padding(
+                //   padding: EdgeInsets.only(left: 20.w, top: 30.h),
+                //   child: Text(
+                //     "Payment Info",
+                //     style: GoogleFonts.inter(
+                //       fontSize: 20.sp,
+                //       fontWeight: FontWeight.w400,
+                //       color: Color.fromARGB(255, 16, 27, 1),
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(height: 10.h),
+                // Padding(
+                //   padding: EdgeInsets.only(left: 20.w, right: 20.h),
+                //   child: Container(
+                //     width: MediaQuery.of(context).size.width,
+                //     height: 170.h,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(5.r),
+                //       border: Border.all(
+                //         color: Color.fromARGB(25, 16, 27, 1),
+                //         width: 1.w,
+                //       ),
+                //     ),
+                //     child: Padding(
+                //       padding: EdgeInsets.only(
+                //         left: 15.w,
+                //         right: 15.w,
+                //         top: 15.h,
+                //       ),
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Text(
+                //                 "Subtotal",
+                //                 style: GoogleFonts.inter(
+                //                   fontSize: 14.sp,
+                //                   fontWeight: FontWeight.w400,
+                //                   color: Color.fromARGB(255, 102, 102, 102),
+                //                 ),
+                //               ),
+                //               // Text(
+                //               //   "\$450.00",
+                //               //   style: GoogleFonts.inter(
+                //               //     fontSize: 14.sp,
+                //               //     fontWeight: FontWeight.bold,
+                //               //     color: Color.fromARGB(255, 102, 102, 102),
+                //               //   ),
+                //               // ),
+                //               // Html(data: cart.cartSubtotal),
+                //             ],
+                //           ),
 
-                          SizedBox(height: 10.h),
-                          
-                          SizedBox(height: 10.h),
-                          Divider(
-                            color: Color.fromARGB(25, 0, 0, 0),
-                            thickness: 1,
-                          ),
-                          // SizedBox(height: 10.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Total ",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color.fromARGB(255, 102, 102, 102),
-                                ),
-                              ),
-                              Html(data: cart.cartTotal)
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                //           SizedBox(height: 10.h),
+
+                //           SizedBox(height: 10.h),
+                //           Divider(
+                //             color: Color.fromARGB(25, 0, 0, 0),
+                //             thickness: 1,
+                //           ),
+                //           // SizedBox(height: 10.h),
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Text(
+                //                 "Total ",
+                //                 style: GoogleFonts.inter(
+                //                   fontSize: 14.sp,
+                //                   fontWeight: FontWeight.w400,
+                //                   color: Color.fromARGB(255, 102, 102, 102),
+                //                 ),
+                //               ),
+                //               // Html(data: cart.cartTotal)
+                //             ],
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 18.h),
                 Divider(color: Color.fromARGB(25, 0, 0, 0), thickness: 1),
                 SizedBox(height: 17.h),
+                GestureDetector(
+                  onTap: () async {
+                    setState(() => btnLoder = true);
 
-                  
+                    try {
+                      // Check if address exists first
+                      final addressData = ref.read(addressProvider);
+                      final hasAddress = await addressData.maybeWhen(
+                        data: (address) => address != null,
+                        orElse: () => false,
+                      );
+
+                      if (!hasAddress) {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => AddressFormPage(),
+                          ),
+                        );
+                        return;
+                      }
+
+                      // Proceed to checkout
+                      final service = CartService(await createDio());
+                      await service.checkout(); // Ensure this returns a Future
+
+                      Fluttertoast.showToast(
+                        msg: "Order Placed Successfully",
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                      );
+                    } catch (e) {
+                      Fluttertoast.showToast(
+                        msg: "Checkout failed: ${e.toString()}",
+                        backgroundColor: Colors.red,
+                      );
+                      debugPrint("Checkout Error: $e");
+                    } finally {
+                      setState(() => btnLoder = false);
+                    }
+                  },
+                  child: Container(
+                    height: 46.h,
+                    decoration: BoxDecoration(
+                      color: textColor,
+                      borderRadius: BorderRadius.circular(30.r),
+                    ),
+                    child: Center(
+                      child:
+                          btnLoder == false
+                              ? Text(
+                                "Checkout",
+                                style: GoogleFonts.inter(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              )
+                              : CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2.5,
+                              ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 20.h),
               ],
             ),
@@ -535,4 +407,185 @@ String truncateString(String input, int maxLength) {
     return input;
   }
   return input.substring(0, maxLength);
+}
+
+class CaartTabs extends StatefulWidget {
+  final String product_id;
+  final String name;
+  final String regularPrice;
+  final String totalprice;
+  const CaartTabs({
+    super.key,
+    required this.product_id,
+    required this.name,
+    required this.regularPrice,
+    required this.totalprice,
+  });
+
+  @override
+  State<CaartTabs> createState() => _CaartTabsState();
+}
+
+class _CaartTabsState extends State<CaartTabs> {
+  int count = 1;
+  void increment() async {
+    setState(() {
+      count++;
+    });
+    final service = CartService(await createDio());
+    // final response = await service.updateCart(UpdateeQ);
+    final response = await service.updateCart(
+      UpdateQuantityBody(
+        productId: int.parse(widget.product_id),
+        quantity: count,
+      ),
+    );
+  }
+
+  void decrement() async {
+    if (count > 1) {
+      setState(() {
+        count--;
+      });
+      final service = CartService(await createDio());
+      // final response = await service.updateCart(UpdateeQ);
+      final response = await service.updateCart(
+        UpdateQuantityBody(
+          productId: int.parse(widget.product_id),
+          quantity: count,
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20.h),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 120.h,
+        decoration: BoxDecoration(
+          border: Border.all(color: Color.fromARGB(25, 0, 0, 0), width: 1.w),
+          borderRadius: BorderRadius.circular(5.r),
+        ),
+        child: Row(
+          children: [
+            // Padding(
+            //   padding: EdgeInsets.all(4),
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(5.r),
+            //     child: Image.network(
+            //       width: 130.w,
+            //       height: 108.h,
+            //       fit: BoxFit.cover,
+            //       // "assets/detailslip.png",
+            //       //decoreList[index]['imageUrl'].toString(),
+            //       cart.cart[index].,
+            //     ),
+            //   ),
+            // ),
+            SizedBox(width: 10.w),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10.h),
+                Text(
+                  // "Happy Birthday Decoration",
+                  truncateString(widget.name, 25),
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(255, 16, 27, 1),
+                  ),
+                ),
+
+                Html(data: widget.totalprice),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: 40.h,
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 6.h),
+                        width: 100.w,
+                        height: 35.h,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(25, 150, 28, 130),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w),
+                            GestureDetector(
+                              onTap: () {
+                                decrement();
+                              },
+                              child: Text(
+                                "-",
+                                style: GoogleFonts.inter(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              "${count.toString()}",
+                              style: GoogleFonts.inter(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.bold,
+                                color: textColor,
+                              ),
+                            ),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                increment();
+                              },
+                              child: Text(
+                                "+",
+                                style: GoogleFonts.inter(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      // GestureDetector(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     margin: EdgeInsets.only(top: 6.h),
+                      //     width: 36.w,
+                      //     height: 28.h,
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(5.r),
+                      //       color: Color.fromARGB(25, 255, 0, 0),
+                      //     ),
+                      //     child: Center(
+                      //       child: Icon(
+                      //         Icons.delete,
+                      //         color: Color.fromARGB(255, 255, 0, 0),
+                      //         size: 20.sp,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

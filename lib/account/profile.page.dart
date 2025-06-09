@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,8 @@ import 'package:shopping_app/category/whishlist.page.dart';
 import 'package:shopping_app/constant/myColors.dart';
 import 'package:shopping_app/home/home.page.dart';
 import 'package:shopping_app/login/login.page.dart';
-import 'package:shopping_app/search/service/allProductController.dart';
+import 'package:shopping_app/screen/address.list.page.dart' show AddressListPage;
+
 
 class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
@@ -84,7 +85,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
             children: [
               SizedBox(width: 20.w),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Container(
                   width: 44.w,
                   height: 44.h,
@@ -235,7 +238,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                           },
                           child: SettingBody(
                             icon: Icon(Icons.online_prediction_sharp),
-                            name: 'Manage Order ',
+                            name: 'Manage Order',
                             isShowdivider: true,
                           ),
                         ),
@@ -254,10 +257,15 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                             isShowdivider: true,
                           ),
                         ),
-                        SettingBody(
-                          icon: Icon(Icons.location_on_sharp),
-                          name: 'Manage Address',
-                          isShowdivider: true,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, CupertinoPageRoute(builder: (context) => AddressListPage()));
+                          },
+                          child: SettingBody(
+                            icon: Icon(Icons.location_on_sharp),
+                            name: 'Manage Address',
+                            isShowdivider: true,
+                          ),
                         ),
                         SizedBox(height: 10.h),
                         GestureDetector(

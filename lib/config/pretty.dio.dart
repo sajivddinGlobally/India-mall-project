@@ -1,18 +1,13 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-<<<<<<< HEAD
-import 'package:hive_flutter/hive_flutter.dart';
-=======
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
->>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shopping_app/login/login.page.dart';
 
 Dio createDio() {
   final dio = Dio();
-<<<<<<< HEAD
   var box = Hive.box("data");
   final token = box.get("token");
   dio.interceptors.add(
@@ -26,9 +21,6 @@ Dio createDio() {
       },
     ),
   );
-=======
-
->>>>>>> c69b5518188aaa73d740a7517b6fbd5ee515a4e3
   dio.interceptors.add(
     PrettyDioLogger(
       requestBody: true,
@@ -37,8 +29,7 @@ Dio createDio() {
       responseHeader: true,
     ),
   );
-  var box = Hive.box("data");
-  var token = box.get("token");
+
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   dio.interceptors.add(
